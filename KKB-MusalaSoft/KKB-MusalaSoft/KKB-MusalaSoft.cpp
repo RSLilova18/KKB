@@ -3,8 +3,34 @@
 #include <string>
 #include <Windows.h>
 #include <cmath>
+#include <windows.h>
+
 
 using namespace std;
+
+//Jobs hierarchy
+struct STUDENT {
+    string name, surrname, role, mail, nameClass;
+    int classStudent;
+};
+
+struct TEAM {
+    string name, description, date, status;
+    vector<STUDENT> students;
+};
+
+struct TEACHER {
+    string name, surrname, mail;
+    vector<TEAM> teams;
+};
+
+struct SCHOOL {
+    string name, city, adress;
+    vector<TEACHER> teachers;
+    vector<TEAM> teams;
+    vector<STUDENT> students;
+};
+
 
 int readInt()
 {
@@ -56,6 +82,8 @@ void printStrings(string rawStr)
 bool menu() {
 
 }
+
+
 int main()
 {
     while (menu());
