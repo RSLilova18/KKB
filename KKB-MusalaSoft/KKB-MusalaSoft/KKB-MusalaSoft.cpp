@@ -4,6 +4,7 @@
 #include <Windows.h>
 #include <cmath>
 #include <windows.h>
+#include <fstream>
 
 
 using namespace std;
@@ -80,13 +81,23 @@ void printStrings(string rawStr)
 }
 
 bool menu() {
-
+    return true;
 }
 
 
 int main()
 {
-    while (menu());
+    //while (menu());
+    /*fstream file;
+    string a,b;
+    cin >> a >> b;
+    a += ',' + b;
+
+    file.open("example.csv", ios::app);
+    file << a<<endl;
+    file << "anton" << endl;
+    file.close();*/
+
 }
 
 
