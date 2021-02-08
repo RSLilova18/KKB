@@ -10,7 +10,7 @@ using namespace std;
 
 //Jobs hierarchy
 struct STUDENT {
-    string name, surrname, role, mail, nameClass;
+    string name, surname, role, mail, nameClass;
     int classStudent;
 };
 
@@ -31,6 +31,42 @@ struct SCHOOL {
     vector<STUDENT> students;
 };
 
+
+void enterStudentsData(vector <STUDENT> data, int numberOfStudents)
+{
+    cin >> numberOfStudents;
+    for (int i = 0; i < numberOfStudents; i++)
+    {
+        cin >> data[i].name;
+        cin >> data[i].surname;
+        cin >> data[i].classStudent;
+        cin >> data[i].nameClass;
+        cin >> data[i].role;
+        cin >> data[i].mail;
+    }
+
+}
+
+void printStudentsData(vector <STUDENT> data, int numberOfStudents)
+{
+    cout << endl;
+    cout << "--------------------------------------------------------------------------------";
+    for (int i = 0; i < numberOfStudents; i++)
+    {
+        cout << data[i].name << " " << data[i].surname << " " << data[i].classStudent << " " << data[i].nameClass;
+        cout << endl;
+        cout << "Role and email: " << data[i].role << " - " << data[i].mail;
+        cout << endl;
+        cout << "--------------------------------------------------------------------------------";
+        cout << endl;
+    }
+}
+
+bool checkStudentsData(vector <STUDENT> data)
+{
+    return true;
+
+}
 
 int readInt()
 {
@@ -79,14 +115,29 @@ void printStrings(string rawStr)
     }
 }
 
-bool menu() {
+bool menu(vector <STUDENT> data, int numberOfStudents) {
+
+    enterStudentsData(data, numberOfStudents);
+    while (checkStudentsData(data) == false)
+    {
+        enterStudentsData(data, numberOfStudents);
+
+    }
+    printStudentsData(data, numberOfStudents);
+    return false;
 
 }
 
 
+
 int main()
 {
-    while (menu());
+    cout << "Enter how many students do you want: ";
+    int numberOfStudents;
+    vector <STUDENT> data;
+    while (menu(data, numberOfStudents));
+
+
 }
 
 
