@@ -32,26 +32,10 @@ struct SCHOOL {
     vector<STUDENT> students;
 };
 
-
-void enterStudentsData(vector <STUDENT> data, int numberOfStudents)
-{
-    cin >> numberOfStudents;
-    for (int i = 0; i < numberOfStudents; i++)
-    {
-        cin >> data[i].name;
-        cin >> data[i].surname;
-        cin >> data[i].classStudent;
-        cin >> data[i].nameClass;
-        cin >> data[i].role;
-        cin >> data[i].mail;
-    }
-
-}
-
 void printStudentsData(vector <STUDENT> data, int numberOfStudents)
 {
     cout << endl;
-    cout << "--------------------------------------------------------------------------------";
+    cout << "--------------------------------------------------------------------------------" << endl;
     for (int i = 0; i < numberOfStudents; i++)
     {
         cout << data[i].name << " " << data[i].surname << " " << data[i].classStudent << " " << data[i].nameClass;
@@ -116,15 +100,41 @@ void printStrings(string rawStr)
     }
 }
 
-bool menu(vector <STUDENT> data, int numberOfStudents) {
 
-    enterStudentsData(data, numberOfStudents);
-    while (checkStudentsData(data) == false)
+STUDENT enterStudentsData()
+{
+    STUDENT student;
+    cin >> student.name;
+    cin >> student.surname;
+    cin >> student.classStudent;
+    cin >> student.nameClass;
+    cin >> student.role;
+    cin >> student.mail;
+    return student;
+}
+
+vector<STUDENT> enterStudents(int numberOfStudents) {
+    STUDENT student;
+    vector<STUDENT> students;
+    for (int i = 0; i < numberOfStudents; i++)
     {
-        enterStudentsData(data, numberOfStudents);
-
+        student = enterStudentsData();
+        students.push_back(student);
     }
-    printStudentsData(data, numberOfStudents);
+    return students;
+}
+
+bool menu() {
+    cout << "Enter how many students do you want: ";
+    int numberOfStudents;
+    cin >> numberOfStudents;
+    vector <STUDENT> students;
+    students = enterStudents(numberOfStudents);
+    /*while (checkStudentsData(students) == false)
+    {
+        //enterStudentsData(students, numberOfStudents);
+    }*/
+    printStudentsData(students, numberOfStudents);
     return false;
 
 }
@@ -133,12 +143,19 @@ bool menu(vector <STUDENT> data, int numberOfStudents) {
 
 int main()
 {
-    cout << "Enter how many students do you want: ";
-    int numberOfStudents;
-    vector <STUDENT> data;
-    while (menu(data, numberOfStudents));
-
+    while (menu());
 
 }
-
+/*bobo
+dimitrov
+10
+v
+backend
+BDD
+valco
+petrov
+10
+g
+front
+VPP*/
 
