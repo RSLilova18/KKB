@@ -140,10 +140,21 @@ bool menu() {
 }
 
 
-
 int main()
 {
-    while (menu());
+    //while (menu());
+    fstream studs,teachers,teams,schools;
+    string a, b;
+    studs.open("students.csv", ios::app);
+    teachers.open("teachers.csv", ios::app);
+    teams.open("teams.csv", ios::app);
+    schools.open("schools.csv", ios::app);
+
+   
+    studs.close();
+    teachers.close();
+    teams.close();
+    schools.close();
 
 }
 /*bobo
