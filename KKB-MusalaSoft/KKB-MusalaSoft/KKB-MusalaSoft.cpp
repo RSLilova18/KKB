@@ -146,16 +146,14 @@ int main()
     fstream studs,teachers,teams,schools;
     string a, b;
     studs.open("students.csv", ios::app);
-    teachers.open("teachers.csv", ios::app);
-    teams.open("teams.csv", ios::app);
-    schools.open("schools.csv", ios::app);
-
+    teachers.open("students.csv", ios::app);
    
+
+    cin >> a >> b;
+    studs << a << "," << b;
     studs.close();
     teachers.close();
-    teams.close();
-    schools.close();
-
+  
 }
 /*bobo
 dimitrov
