@@ -26,7 +26,7 @@ struct TEACHER {
 };
 
 struct SCHOOL {
-    string name, city, adress;
+    string name, city, address;
     vector<TEACHER> teachers;
     vector<TEAM> teams;
     vector<STUDENT> students;
@@ -47,6 +47,7 @@ void printStudentsData(vector <STUDENT> data, int numberOfStudents)
     }
 }
 
+//template
 bool checkStudentsData(vector <STUDENT> data)
 {
     return true;
@@ -100,16 +101,42 @@ void printStrings(string rawStr)
     }
 }
 
+SCHOOL enterSchoolData()
+{
+    SCHOOL school;
 
-STUDENT enterStudentsData()
+    cout << endl;
+    cout << "Enter city: ";
+    cin >> school.city;
+    cout << "Enter name: ";
+    cout << school.name;
+    cout << "Enter address: ";
+    cout << school.address;
+
+
+    return school;
+}
+
+STUDENT enterStudentsData(int counterStudent = 1)
 {
     STUDENT student;
+
+
+    cout << endl;
+    cout << counterStudent << ".Enter student name: ";
     cin >> student.name;
+    cout << counterStudent << ".Enter student surname: ";
     cin >> student.surname;
+    cout << counterStudent << ".Enter student class: ";
     cin >> student.classStudent;
+    cout << counterStudent << ".Enter student class name: ";
     cin >> student.nameClass;
+    cout << counterStudent << ".Enter student role: ";
     cin >> student.role;
+    cout << counterStudent << ".Enter student mail: ";
     cin >> student.mail;
+
+
     return student;
 }
 
@@ -118,7 +145,7 @@ vector<STUDENT> enterStudents(int numberOfStudents) {
     vector<STUDENT> students;
     for (int i = 0; i < numberOfStudents; i++)
     {
-        student = enterStudentsData();
+        student = enterStudentsData(i + 1);
         students.push_back(student);
     }
     return students;
@@ -142,19 +169,27 @@ bool menu() {
 
 int main()
 {
-    //while (menu());
-    fstream studs,teachers,teams,schools;
+    while (menu());
+
+
+
+    /*fstream studs, teachers, teams, schools;
     string a, b;
     studs.open("students.csv", ios::app);
-    teachers.open("students.csv", ios::app);
-   
+    teachers.open("teachers.csv", ios::app);
+    teams.open("teams.csv", ios::app);
+    schools.open("schools.csv", ios::app);
 
-    cin >> a >> b;
-    studs << a << "," << b;
+
     studs.close();
     teachers.close();
-  
+    teams.close();
+    schools.close();*/
+
 }
+
+
+
 /*bobo
 dimitrov
 10
