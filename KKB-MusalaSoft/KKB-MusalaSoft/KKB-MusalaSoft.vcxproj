@@ -141,6 +141,14 @@
   <ItemGroup>
     <ClCompile Include="KKB-MusalaSoft.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CustomDataTypes.h" />
+    <ClInclude Include="CustomOperators.h" />
+    <ClInclude Include="DataLayerFucntions.h" />
+    <ClInclude Include="DisplayFucntions.h" />
+    <ClInclude Include="FilterFunctions.h" />
+    <ClInclude Include="FunctionsFromCustomDataTypes.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
