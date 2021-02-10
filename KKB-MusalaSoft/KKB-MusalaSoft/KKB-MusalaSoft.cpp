@@ -13,6 +13,7 @@ using namespace std;
 struct STUDENT {
     string name, surname, role, mail, nameClass;
     int classStudent;
+    float grade;
 };
 
 struct TEAM {
@@ -40,7 +41,7 @@ void printStudentsData(vector <STUDENT> data)
     {
         cout << data[i].name << " " << data[i].surname << " " << data[i].classStudent << " " << data[i].nameClass;
         cout << endl;
-        cout << "Role and email: " << data[i].role << " - " << data[i].mail;
+        cout << "Role, grade and email: " << data[i].role << data[i].grade << " - " << data[i].mail;
         cout << endl;
         cout << "--------------------------------------------------------------------------------";
         cout << endl;
@@ -85,9 +86,18 @@ void printTeachersData(vector<TEACHER> data)
 }
 
 //template
-bool checkStudentsData(vector <STUDENT> data)
+bool checkStudentsData(STUDENT data, int counterStudent = 1)
 {
-    return true;
+
+    if (data.grade > 6 or data.grade < 2)
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+
 
 }
 
@@ -96,6 +106,7 @@ int readInt()
     int a;
 
     //loops until the user enters an integer
+
     while (!(cin >> a))
     {
         cin.clear();
@@ -151,6 +162,8 @@ STUDENT enterStudentData(int counterStudent = 1)
     cin >> student.classStudent;
     cout << counterStudent << ".Enter student class name: ";
     cin >> student.nameClass;
+    cout << counterStudent << ".Enter student grade: ";
+    cin >> student.grade;
     cout << counterStudent << ".Enter student role: ";
     cin >> student.role;
     cout << counterStudent << ".Enter student mail: ";
@@ -166,6 +179,12 @@ vector<STUDENT> enterStudents(int numberOfStudents) {
     for (int i = 0; i < numberOfStudents; i++)
     {
         student = enterStudentData(i + 1);
+        while (checkStudentsData(student) == false)
+        {
+            cout << "Invalid grade!" << endl;
+            student = enterStudentData(i + 1);
+
+        }
         students.push_back(student);
     }
     return students;
@@ -248,21 +267,22 @@ vector<TEACHER> enterTeachers(int numberOfTeachers, vector<TEAM> teams) {
     }
     return teachers;
 }
+
 SCHOOL enterSchoolData()
 {
     SCHOOL school;
     int numberOfStudents, numberOfTeams, numberOfTeachers;
-    cout << endl;
-    cout << "Enter city: ";
+    /*cout << endl;*/
+    cout << "Enter the city of the school: ";
     cin >> school.city;
-    cout << "Enter name: ";
+    cout << "Enter the name: ";
     cin >> school.name;
-    cout << "Enter address: ";
+    cout << "Enter the address: ";
     cin >> school.address;
-    cout << "Enter number of students: ";
+    cout << "Enter the number of students in " << school.city << ": ";
     cin >> numberOfStudents;
     school.students = enterStudents(numberOfStudents);
-    cout << "Enter the number of teams in the school: ";
+    cout << "Enter the number of the teams in the school: ";
     cin >> numberOfTeams;
     school.teams = enterTeams(numberOfTeams);
     cout << "Enter the number of teachers in the school: ";
@@ -286,7 +306,7 @@ bool menu() {
 int main()
 {
     //while (menu());
-
+     
     SCHOOL sch = enterSchoolData();
     cout << "School city: ";
     cout << sch.city << endl;
@@ -335,3 +355,69 @@ g
 front
 VPP*/
 
+
+/*Burgas
+Chintulov
+Izgrev
+3
+Valentin
+Petrov
+10
+G
+5.20
+frontend
+VPP
+Raq
+Lilova
+10
+B
+4.5
+codebreaker
+RSL
+Bojidar
+Dimitrov
+10
+V
+5.9
+backend
+BDD
+2
+Strong
+We are the strongest
+10.02.2021
+Valentin
+Petrov
+10
+G
+5.20
+frontend
+VPP
+Raq
+Lilova
+10
+B
+4.5
+codebreaker
+RSL
+Strong2
+We are the strongest
+10.02.2021
+1
+Bojidar
+Dimitrov
+10
+V
+5.9
+backend
+BDD
+2
+Goshko
+Petrov
+GPP
+1
+Strong
+Goshko1
+Petrov1
+GPP1
+1
+Strong2*/
