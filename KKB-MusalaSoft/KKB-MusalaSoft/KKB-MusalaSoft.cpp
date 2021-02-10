@@ -276,7 +276,7 @@ bool menu() {
 
     /*while (checkStudentsData(students) == false)
     {
-        //enterStudentsData(students, numberOfStudents);
+        enterStudentsData(students);
     }*/
     return false;
 
