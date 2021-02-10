@@ -84,6 +84,7 @@ struct TEAM
     }
 
     void enterTeamData(vector<STUDENT> students, int teamNumber=1) {
+        cout << endl;
         cout << teamNumber << ".Enter team name: ";
         cin >> name;
         cout << teamNumber << ".Enter team description: ";
@@ -92,7 +93,7 @@ struct TEAM
         cout << teamNumber << ".Enter team creation date: ";
         cin >> date;
         
-
+        cout << endl;
         cout << "OK, now enter the data for a backend: " << endl;
         backEnd = enterStudentData();
         studentValidationPrint(backEnd,students,"OK, now enter the data for a backend: ");
@@ -112,7 +113,9 @@ struct TEAM
     }
     void studentValidationPrint(STUDENT& student, vector<STUDENT> studentsList, string msg) {
         while (!checkIfStudentExist(student, studentsList)) {
+            cout << endl;
             cout << "This student does not exist! Try again!" << endl;
+            cout << endl;
             cout << msg << endl;
             student = TEAM::enterStudentData();
         }
@@ -287,6 +290,7 @@ vector<STUDENT> enterStudents(int numberOfStudents) {
         student.enterData(i + 1);
         while (checkStudentsData(student) == false)
         {
+
             cout << "Invalid grade!" << endl;
             student.enterData(i + 1);
         }
@@ -334,6 +338,7 @@ SCHOOL enterSchoolData()
     cout << "Enter the number of students in " << school.city << ": ";
     cin >> numberOfStudents;
     school.students = enterStudents(numberOfStudents);
+    cout << endl;
     cout << "Enter the number of the teams in the school: ";
     cin >> numberOfTeams;
     school.teams = enterTeams(numberOfTeams,school.students);
@@ -345,6 +350,22 @@ SCHOOL enterSchoolData()
 }
 
 bool menu() {
+    cout << ".................................................." << endl;
+    cout << "1.Enter a new school." << endl;
+    cout << "2.Enter a new students in the list" << endl;
+    cout << "3.Enter a new teacher in the list" << endl;
+    cout << "4.Delete an already exist student from the list" << endl;
+    cout << "5.Delete an already exist teacher from the list" << endl;
+    cout << "6.Alphabetical distribution" << endl;
+    cout << "7.Rnadom distribution" << endl;
+    cout << ".................................................." << endl;
+    
+    cout << endl;
+
+    int option;
+    cout << "Please enter your option here -> ";
+    cin >> option;
+
 
     /*while (checkStudentsData(students) == false)
     {
