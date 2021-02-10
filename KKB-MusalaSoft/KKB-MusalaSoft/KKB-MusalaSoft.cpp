@@ -9,21 +9,188 @@
 
 using namespace std;
 
+
 //Jobs hierarchy
-struct STUDENT {
+struct STUDENT 
+{
     string name, surname, role, mail, nameClass;
     int classStudent;
     float grade;
+
+    void enterData(int counterStudent = 1) 
+    {
+        cout << endl;
+        cout << counterStudent << ".Enter student name: ";
+        cin >> name;
+        cout << counterStudent << ".Enter student surname: ";
+        cin >> surname;
+        cout << counterStudent << ".Enter student class: ";
+        cin >> classStudent;
+        cout << counterStudent << ".Enter student class name: ";
+        cin >> nameClass;
+        cout << counterStudent << ".Enter student grade: ";
+        cin >> grade;
+        cout << counterStudent << ".Enter student mail: ";
+        cin >> mail;
+    }
+
+    void printStudent() {
+        cout << endl;
+        cout << "--------------------------------------------------------------------------------";
+        cout << endl;
+        cout << "--" << name << " " << surname << " " << classStudent << " " << nameClass;
+        cout << endl;
+        cout << "--" << "Role, grade and email: " << role <<" "<< grade << " - " << mail;
+        cout << endl;
+        cout << "--------------------------------------------------------------------------------";
+        cout << endl;
+    }
 };
 
-struct TEAM {
+bool operator==(const STUDENT& firstStud, const STUDENT& secondStud)
+{
+    return firstStud.mail == secondStud.mail;
+}
+
+bool checkIfStudentExist(STUDENT& student, vector<STUDENT> studentsList) {
+    string role;
+    role = student.role;
+    for (size_t i = 0; i < studentsList.size();i++)
+    {
+        if (student == studentsList[i])
+        {
+            student = studentsList[i];
+            student.role = role;
+            return true;
+        }
+    }
+    return false;
+}
+
+
+struct TEAM 
+{
     string name, description, date, status;
-    vector<STUDENT> students;
+    STUDENT scrumMaster;
+    STUDENT backEnd;
+    STUDENT frontEnd;
+    STUDENT qaEngineer;
+
+    static STUDENT enterStudentData() {
+        STUDENT student;
+        cout << "--Enter student mail: ";
+        cin >> student.mail;
+        return student;
+    }
+
+    void enterTeamData(vector<STUDENT> students, int teamNumber=1) {
+        cout << teamNumber << ".Enter team name: ";
+        cin >> name;
+        cout << teamNumber << ".Enter team description: ";
+        cin.ignore();
+        getline(cin, description);
+        cout << teamNumber << ".Enter team creation date: ";
+        cin >> date;
+        
+
+        cout << "OK, now enter the data for a backend: " << endl;
+        backEnd = enterStudentData();
+        studentValidationPrint(backEnd,students,"OK, now enter the data for a backend: ");
+        cout << "OK, now enter the data for a frontend: " << endl;
+        frontEnd = enterStudentData();
+        studentValidationPrint(frontEnd, students, "OK, now enter the data for a frontend: ");
+        cout << "OK, now enter the data for a scrum master: " << endl;
+        scrumMaster = enterStudentData();
+        studentValidationPrint(scrumMaster, students, "OK, now enter the data for a scrum master: ");
+        cout << "OK, now enter the data for a quality engineer: " << endl;
+        qaEngineer = enterStudentData();
+        studentValidationPrint(qaEngineer, students, "OK, now enter the data for a quality engineer: ");
+        scrumMaster.role = "scrum Master";
+        frontEnd.role = "Front End";
+        backEnd.role = "Back End";
+        qaEngineer.role = "Quality engineer";
+    }
+    void studentValidationPrint(STUDENT& student, vector<STUDENT> studentsList, string msg) {
+        while (!checkIfStudentExist(student, studentsList)) {
+            cout << "This student does not exist! Try again!" << endl;
+            cout << msg << endl;
+            student = TEAM::enterStudentData();
+        }
+    }
+    void printTeam() 
+    {
+        cout << "--------------------------------------------------------------------------------";
+        cout << endl;
+        cout << name;
+        cout << endl;
+        cout << description;
+        cout << endl;
+        cout << date;
+        cout << endl << endl;
+        cout << "The students of the team: " << endl;
+        backEnd.printStudent();
+        frontEnd.printStudent();
+        scrumMaster.printStudent();
+        qaEngineer.printStudent();
+        cout << "--------------------------------------------------------------------------------";
+        cout << endl;
+    }
 };
+
+bool checkIfTeamNameIsValid(string name, vector<TEAM> teams)
+{
+    for (size_t i = 0; i < teams.size(); i++)
+    {
+        if (name == teams[i].name)
+        {
+            return true;
+        }
+    }
+    return false;
+}
 
 struct TEACHER {
     string name, surrname, mail;
     vector<string> teamNames;
+
+    void enterTeacherData(vector<TEAM> teams, int teacherNumberCount =1) {
+        int teamsMentoredCount;
+        string nameTeamTemp;
+        cout << teacherNumberCount << ".Enter teacher name: ";
+        cin >> name;
+        cout << teacherNumberCount << ".Enter teacher surname: ";
+        cin >> surrname;
+        cout << teacherNumberCount << ".Enter teacher mail: ";
+        cin >> mail;
+
+        cout << "How many teams does the teacher mentors: ";
+        cin >> teamsMentoredCount;
+        for (int i = 0; i < teamsMentoredCount; i++)
+        {
+            cout << "Enter the team name that the teacher mentors: ";
+            cin >> nameTeamTemp;
+            while (!checkIfTeamNameIsValid(nameTeamTemp, teams)) {
+                cout << "That team doesn't exist in the school! Try again!" << endl;
+                cin >> nameTeamTemp;
+            }
+            teamNames.push_back(nameTeamTemp);
+        }
+    }
+
+    void printTeacherData() {
+        cout << "--------------------------------------------------------------------------------";
+        cout << endl;
+        cout << name << " " << surrname;
+        cout << endl;
+        cout << "Email: " << mail;
+        cout << endl;
+        for (size_t j = 0; j < teamNames.size(); j++)
+        {
+            cout << j + 1 << ". Team name : " << teamNames[j] << endl;
+        }
+        cout << "--------------------------------------------------------------------------------";
+        cout << endl;
+    }
 };
 
 struct SCHOOL {
@@ -35,70 +202,33 @@ struct SCHOOL {
 
 void printStudentsData(vector <STUDENT> data)
 {
-    cout << endl;
-    cout << "--------------------------------------------------------------------------------" << endl;
     for (size_t i = 0; i < data.size(); i++)
     {
-        cout << data[i].name << " " << data[i].surname << " " << data[i].classStudent << " " << data[i].nameClass;
-        cout << endl;
-        cout << "Role, grade and email: " << data[i].role << data[i].grade << " - " << data[i].mail;
-        cout << endl;
-        cout << "--------------------------------------------------------------------------------";
-        cout << endl;
+        data[i].printStudent();
     }
 }
 
 void printTeamsData(vector<TEAM> data)
 {
-    cout << endl;
-    cout << "--------------------------------------------------------------------------------" << endl;
     for (size_t i = 0; i < data.size(); i++)
     {
-        cout << data[i].name;
-        cout << endl;
-        cout << data[i].description;
-        cout << endl;
-        cout << data[i].date;
-        cout << endl << endl;
-        cout << "The students of the team: " << endl;
-        printStudentsData(data[i].students);
+        data[i].printTeam();
     }
-    cout << "--------------------------------------------------------------------------------" << endl;
 }
 
 void printTeachersData(vector<TEACHER> data)
 {
-    cout << endl;
-    cout << "--------------------------------------------------------------------------------" << endl;
+   
     for (size_t i = 0; i < data.size(); i++)
     {
-        cout << data[i].name << " " << data[i].surrname;
-        cout << endl;
-        cout << "Email: " << data[i].mail;
-        cout << endl;
-        for (size_t j = 0; j < data[i].teamNames.size(); j++)
-        {
-            cout << j + 1 << ". Team name : " << data[i].teamNames[j] << endl;
-        }
-        cout << "--------------------------------------------------------------------------------";
-        cout << endl;
+        data[i].printTeacherData();
     }
 }
 
 //template
 bool checkStudentsData(STUDENT data, int counterStudent = 1)
 {
-
-    if (data.grade > 6 or data.grade < 2)
-    {
-        return false;
-    }
-    else
-    {
-        return true;
-    }
-
-
+    return !(data.grade > 6 or data.grade < 2);
 }
 
 int readInt()
@@ -148,113 +278,34 @@ void printStrings(string rawStr)
         cout << endl;
     }
 }
-STUDENT enterStudentData(int counterStudent = 1)
-{
-    STUDENT student;
-
-
-    cout << endl;
-    cout << counterStudent << ".Enter student name: ";
-    cin >> student.name;
-    cout << counterStudent << ".Enter student surname: ";
-    cin >> student.surname;
-    cout << counterStudent << ".Enter student class: ";
-    cin >> student.classStudent;
-    cout << counterStudent << ".Enter student class name: ";
-    cin >> student.nameClass;
-    cout << counterStudent << ".Enter student grade: ";
-    cin >> student.grade;
-    cout << counterStudent << ".Enter student role: ";
-    cin >> student.role;
-    cout << counterStudent << ".Enter student mail: ";
-    cin >> student.mail;
-
-
-    return student;
-}
 
 vector<STUDENT> enterStudents(int numberOfStudents) {
     STUDENT student;
     vector<STUDENT> students;
     for (int i = 0; i < numberOfStudents; i++)
     {
-        student = enterStudentData(i + 1);
+        student.enterData(i + 1);
         while (checkStudentsData(student) == false)
         {
             cout << "Invalid grade!" << endl;
-            student = enterStudentData(i + 1);
-
+            student.enterData(i + 1);
         }
         students.push_back(student);
     }
     return students;
 }
 
-TEAM enterTeam(int teamNumber = 1) {
-    TEAM team;
-    int MembersCount;
-    cout << teamNumber << ".Enter team name: ";
-    cin >> team.name;
-    cout << teamNumber << ".Enter team description: ";
-    cin.ignore();
-    getline(cin, team.description);
-    cout << teamNumber << ".Enter team creation date: ";
-    cin >> team.date;
-    cout << teamNumber << ".Enter the number of team members: ";
-    cin >> MembersCount;
 
-    cout << "Now Enter your students for the team: " << endl << endl;
-    team.students = enterStudents(MembersCount);
-    return team;
-}
 
-vector<TEAM> enterTeams(int numberOfTeams) {
+vector<TEAM> enterTeams(int numberOfTeams,vector<STUDENT> students) {
     TEAM team;
     vector<TEAM> teams;
     for (int i = 0; i < numberOfTeams; i++)
     {
-        team = enterTeam(i + 1);
+        team.enterTeamData(students,i + 1);
         teams.push_back(team);
     }
     return teams;
-}
-
-bool checkIfTeamNameIsValid(string name, vector<TEAM> teams)
-{
-    for (int i = 0; i < teams.size(); i++)
-    {
-        if (name == teams[i].name)
-        {
-            return true;
-        }
-    }
-    return false;
-}
-
-TEACHER enterTeacher(vector<TEAM> teams, int teacherNumberCount = 1) {
-    TEACHER teacher;
-    int teamsMentoredCount;
-    string nameTeamTemp;
-    cout << teacherNumberCount << ".Enter teacher name: ";
-    cin >> teacher.name;
-    cout << teacherNumberCount << ".Enter teacher surname: ";
-    cin >> teacher.surrname;
-    cout << teacherNumberCount << ".Enter teacher mail: ";
-    cin >> teacher.mail;
-
-    cout << "How many teams does the teacher mentors: ";
-    cin >> teamsMentoredCount;
-    for (int i = 0; i < teamsMentoredCount; i++)
-    {
-        cout << "Enter the team name that the teacher mentors: ";
-        cin >> nameTeamTemp;
-        while (!checkIfTeamNameIsValid(nameTeamTemp, teams)) {
-            cout << "That team doesn't exist in the school! Try again!" << endl;
-            cin >> nameTeamTemp;
-        }
-        teacher.teamNames.push_back(nameTeamTemp);
-    }
-    return teacher;
 }
 
 vector<TEACHER> enterTeachers(int numberOfTeachers, vector<TEAM> teams) {
@@ -262,7 +313,7 @@ vector<TEACHER> enterTeachers(int numberOfTeachers, vector<TEAM> teams) {
     vector<TEACHER> teachers;
     for (int i = 0; i < numberOfTeachers; i++)
     {
-        teacher = enterTeacher(teams, i + 1);
+        teacher.enterTeacherData(teams, i + 1);
         teachers.push_back(teacher);
     }
     return teachers;
@@ -278,13 +329,14 @@ SCHOOL enterSchoolData()
     cout << "Enter the name: ";
     cin >> school.name;
     cout << "Enter the address: ";
-    cin >> school.address;
+    cin.ignore();
+    getline(cin,school.address);
     cout << "Enter the number of students in " << school.city << ": ";
     cin >> numberOfStudents;
     school.students = enterStudents(numberOfStudents);
     cout << "Enter the number of the teams in the school: ";
     cin >> numberOfTeams;
-    school.teams = enterTeams(numberOfTeams);
+    school.teams = enterTeams(numberOfTeams,school.students);
     cout << "Enter the number of teachers in the school: ";
     cin >> numberOfTeachers;
     school.teachers = enterTeachers(numberOfTeachers, school.teams);
@@ -322,7 +374,8 @@ int main()
     cout << "Teachers data: " << endl << endl;
     printTeachersData(sch.teachers);
 
-
+    
+    
 
 
     /*fstream studs, teachers, teams, schools;
@@ -337,87 +390,4 @@ int main()
     teachers.close();
     teams.close();
     schools.close();*/
-
 }
-
-
-
-/*bobo
-dimitrov
-10
-v
-backend
-BDD
-valco
-petrov
-10
-g
-front
-VPP*/
-
-
-/*Burgas
-Chintulov
-Izgrev
-3
-Valentin
-Petrov
-10
-G
-5.20
-frontend
-VPP
-Raq
-Lilova
-10
-B
-4.5
-codebreaker
-RSL
-Bojidar
-Dimitrov
-10
-V
-5.9
-backend
-BDD
-2
-Strong
-We are the strongest
-10.02.2021
-Valentin
-Petrov
-10
-G
-5.20
-frontend
-VPP
-Raq
-Lilova
-10
-B
-4.5
-codebreaker
-RSL
-Strong2
-We are the strongest
-10.02.2021
-1
-Bojidar
-Dimitrov
-10
-V
-5.9
-backend
-BDD
-2
-Goshko
-Petrov
-GPP
-1
-Strong
-Goshko1
-Petrov1
-GPP1
-1
-Strong2*/
