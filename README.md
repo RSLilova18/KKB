@@ -40,7 +40,7 @@ Georgi N. Georgiev - 10**A**  ->  Quality Engineer
 -	Word and PowerPoint 
 -	Discord, Messenger, Teams 
 #### The program languages used for the project:
-- C++ 
+- C++, C
 -	HTML, CSS, JavaScript, PHP
 
 
