@@ -29,13 +29,13 @@
     <ClInclude Include="FilterFunctions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DisplayFucntions.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DataLayerFucntions.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="CustomOperators.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DataLayerFunctions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DisplayFunctions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

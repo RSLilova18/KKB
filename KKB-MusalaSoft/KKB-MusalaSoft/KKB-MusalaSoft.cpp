@@ -6,8 +6,8 @@
 #include <fstream>
 #include "CustomDataTypes.h" 
 #include "CustomOperators.h"
-#include "DataLayerFucntions.h" 
-#include "DisplayFucntions.h" 
+#include "DataLayerFunctions.h" 
+#include "DisplayFunctions.h" 
 #include "FilterFunctions.h"
 #include "FunctionsFromCustomDataTypes.h"
 
@@ -21,7 +21,7 @@ bool menu() {
     cout << "4.Delete an already exist student from the list" << endl;
     cout << "5.Delete an already exist teacher from the list" << endl;
     cout << "6.Alphabetical distribution" << endl;
-    cout << "7.Rnadom distribution" << endl;
+    cout << "7.Random distribution" << endl;
     cout << ".................................................." << endl;
     
     cout << endl;

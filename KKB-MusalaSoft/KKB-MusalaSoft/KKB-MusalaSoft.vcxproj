@@ -144,8 +144,8 @@
   <ItemGroup>
     <ClInclude Include="CustomDataTypes.h" />
     <ClInclude Include="CustomOperators.h" />
-    <ClInclude Include="DataLayerFucntions.h" />
-    <ClInclude Include="DisplayFucntions.h" />
+    <ClInclude Include="DataLayerFunctions.h" />
+    <ClInclude Include="DisplayFunctions.h" />
     <ClInclude Include="FilterFunctions.h" />
     <ClInclude Include="FunctionsFromCustomDataTypes.h" />
   </ItemGroup>
