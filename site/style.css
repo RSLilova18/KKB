@@ -18,3 +18,48 @@ img
 	margin-top:-250px;
 	size:10px;
 }
+
+
+.button1
+{
+	background-color: #3d9ef2; 
+    border: 2px solid #3d9ef2;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border-radius: 8px;
+  margin-left:240px;
+}
+
+.button1:hover {
+  background-color: white;
+  color: #3d9ef2;
+}
+
+.button2
+{
+	background-color: white; 
+  border: 2px solid #3d9ef2;
+  color: #3d9ef2;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border-radius: 8px;
+    margin-left:30px;
+}
+
+.button2:hover {
+  background-color: #3d9ef2;
+  color: white;
+}
