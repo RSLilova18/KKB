@@ -42,11 +42,14 @@ bool checkStudentsData(STUDENT data, int counterStudent = 1)
     return !(data.grade > 6 or data.grade < 2);
 }
 
+int br = 0;  //need better way to implement (this is for the new student)
+
 vector<STUDENT> enterStudents(int numberOfStudents) {
     STUDENT student;
     vector<STUDENT> students;
-    for (int i = 0; i < numberOfStudents; i++)
+    for (int i = br; i < numberOfStudents; i++)
     {
+        br++;
         student.enterData(i + 1);
         while (checkStudentsData(student) == false)
         {

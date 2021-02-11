@@ -24,6 +24,7 @@ bool menu() {
     cout << ". 7.Random distribution                               ." << endl;
     cout << ". 8.Exit                                              ." << endl;
     cout << "......................................................." << endl;
+    bool flag = false;
 
     cout << endl;
 
@@ -48,13 +49,42 @@ bool menu() {
         cout << "Teachers data: " << endl << endl;
         printTeachersData(sch.teachers);
 
+        flag = true;
+
         return true;
     }
-    else if (option == 8)
+    if (flag)
     {
-        return false;
-    }
+        if (option == 2)
+        {
+            enterStudents(br + 1); //need better way to implement (this is for the new student)
 
+
+        }
+        else if (option == 6)
+        {
+
+            //need only to print the date in some way need to take the date without input it again
+
+            /*   cout << "School city: ";
+               cout << sch.city << endl;
+               cout << "School name: ";
+               cout << sch.name << endl;
+               cout << "School address: ";
+               cout << sch.address << endl;
+               cout << endl << "Students data: " << endl << endl;
+               printStudentsData(sch.students);
+               cout << "Teams data: " << endl << endl;
+               printTeamsData(sch.teams);
+               cout << "Teachers data: " << endl << endl;
+               printTeachersData(sch.teachers);*/
+
+        }
+        else if (option == 8)
+        {
+            return false;
+        }
+    }
 
     /*while (checkStudentsData(students) == false)
     {
@@ -88,4 +118,5 @@ int main()
     teams.close();
     schools.close();*/
 }
+
 
