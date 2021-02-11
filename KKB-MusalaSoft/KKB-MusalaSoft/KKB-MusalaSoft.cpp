@@ -6,8 +6,8 @@
 #include <fstream>
 #include "CustomDataTypes.h" 
 #include "CustomOperators.h"
-#include "DataLayerFucntions.h" 
-#include "DisplayFucntions.h" 
+#include "DataLayerFunctions.h" 
+#include "DisplayFunctions.h" 
 #include "FilterFunctions.h"
 #include "FunctionsFromCustomDataTypes.h"
 
