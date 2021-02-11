@@ -20,8 +20,10 @@ bool menu() {
     cout << "3.Enter a new teacher in the list" << endl;
     cout << "4.Delete an already exist student from the list" << endl;
     cout << "5.Delete an already exist teacher from the list" << endl;
-    cout << "6.Alphabetical distribution" << endl;
-    cout << "7.Rnadom distribution" << endl;
+    cout << "6.Display a school data" << endl;
+    cout << "7.Go to reports menu" << endl; 
+    cout << "8.Alphabetical distribution" << endl;
+    cout << "9.Random distribution" << endl;
     cout << ".................................................." << endl;
     
     cout << endl;
