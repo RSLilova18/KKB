@@ -1,7 +1,7 @@
 .Slogan{
 	font-size: 40px;
 	font-family: 'Noto Sans JP', sans-serif;
-	margin-top: 300px;
+	margin-top: 200px;
 	margin-left:100px;
 }
 
@@ -15,7 +15,7 @@
 img
 {
 	margin-left:1130px;
-	margin-top:-250px;
+	margin-top:-380px;
 	size:10px;
 }
 
@@ -63,3 +63,14 @@ img
   background-color: #3d9ef2;
   color: white;
 }
+
+
+.logo
+{
+	margin-top:129px;
+	margin-left:-1110px;
+}
+
+
+
+
