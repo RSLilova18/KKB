@@ -41,7 +41,7 @@ Georgi N. Georgiev - 10**A**  ->  Quality Engineer
 -	Discord, Messenger, Teams 
 #### The program languages used for the project:
 
-<img align="left" width="30" height="30" src="https://user-images.githubusercontent.com/56883533/107850749-6ac72b80-6e0d-11eb-8cfd-c112b3ec74dd.png" >- C++
+<img align="left" width="37" height="32" src="https://user-images.githubusercontent.com/56883533/107850857-59caea00-6e0e-11eb-95b1-95a6346e986d.png" > - C++
 - C
 -	HTML, CSS, JavaScript, PHP
 
