@@ -42,6 +42,7 @@ Georgi N. Georgiev - 10**A**  ->  Quality Engineer
 #### The program languages used for the project:
 
 - C++<img align="right" width="35" height="32" src="https://user-images.githubusercontent.com/56883533/107850857-59caea00-6e0e-11eb-95b1-95a6346e986d.png">
+<br/>
 - C <img align="right" width="35" height="32" src="https://user-images.githubusercontent.com/56883533/107850934-d9f14f80-6e0e-11eb-856e-50b9c484fc97.png">
 -	HTML<img align="right" width="39" height="32" src="https://user-images.githubusercontent.com/56883533/107851048-892e2680-6e0f-11eb-9d9c-3d5e36b1fcf4.png">
 - CSS<img align="right" width="40" height="34" src="https://user-images.githubusercontent.com/56883533/107851050-8b908080-6e0f-11eb-918d-bc249e8c40a5.png">
