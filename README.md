@@ -1,4 +1,4 @@
-# Team KKB<img align="middle" width="300" height="180" src="https://user-images.githubusercontent.com/56883533/107546315-e68a6380-6bd4-11eb-9f57-e2430e0a4d1f.png" >
+# Team KKB<img align="right" width="200" height="180" src="https://user-images.githubusercontent.com/56883533/107850662-b5947380-6e0c-11eb-85bc-3d83f76ed9d2.png" >
 
 
 
