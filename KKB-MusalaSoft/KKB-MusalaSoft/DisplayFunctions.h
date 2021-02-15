@@ -110,3 +110,41 @@ SCHOOL enterSchoolData()
 
     return school;
 }
+
+void printSchoolData(SCHOOL school) {
+    cout << "School city: ";
+    cout << school.city << endl;
+    cout << "School name: ";
+    cout << school.name << endl;
+    cout << "School address: ";
+    cout << school.address << endl;
+    cout << endl << "Students data: " << endl << endl;
+    printStudentsData(school.students);
+    cout << "Teams data: " << endl << endl;
+    printTeamsData(school.teams);
+    cout << "Teachers data: " << endl << endl;
+    printTeachersData(school.teachers);
+}
+
+void showAllSchoolNames() {
+    char* c1;
+    string  firstCommand = "cd ../../CSVFiles && dir /B | findstr /v /i \"template\" |findstr /v /i \"BACKUP\"";
+    c1 = &firstCommand[0];
+    system(c1);
+}
+
+void printInsertStudents(vector<STUDENT> students, fstream& file) {
+    if (insertStudentsIntoFile(students, file)) {
+        cout << "Students inserted succsesfully!" << endl;
+        return;
+    }
+    cout << "A problem occured while inserting the students." << endl;
+}
+
+
+void print_state(const std::ios& stream) {
+    std::cout << " good()=" << stream.good() << endl;
+    std::cout << " eof()=" << stream.eof() << endl;
+    std::cout << " fail()=" << stream.fail() << endl;
+    std::cout << " bad()=" << stream.bad() << endl;
+}

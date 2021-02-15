@@ -6,11 +6,11 @@
 #include <cmath>
 #include <fstream>
 #include "CustomDataTypes.h" 
-#include "CustomOperators.h"
+#include "DisplayFunctions.h"
 
 using namespace std;
 
-void STUDENT::enterData(int counterStudent) {
+void STUDENT::enterData(int counterStudent=1) {
     cout << endl;
     cout << counterStudent << ".Enter student name: ";
     cin >> name;
@@ -104,7 +104,7 @@ void TEAM::printTeam()
     cout << endl;
 }
 
-void TEACHER::enterTeacherData(vector<TEAM> teams, int teacherNumberCount ) {
+void TEACHER::enterTeacherData(vector<TEAM> teams, int teacherNumberCount =1) {
     int teamsMentoredCount;
     string nameTeamTemp;
     cout << teacherNumberCount << ".Enter teacher name: ";

@@ -1,9 +1,9 @@
 #include <iostream>
 #include <vector>
-#include <string>
 #include <Windows.h>
 #include <cmath>
 #include <fstream>
+#include <string>
 #include "CustomDataTypes.h" 
 #include "CustomOperators.h"
 #include "DataLayerFunctions.h" 
@@ -13,110 +13,87 @@
 
 using namespace std;
 
-bool menu() {
-    cout << "......................................................." << endl;
-    cout << ". 1.Enter a new school.                               ." << endl;
-    cout << ". 2.Enter a new students in the list                  ." << endl;
-    cout << ". 3.Enter a new teacher in the list                   ." << endl;
-    cout << ". 4.Delete an already exist student from the list     ." << endl;
-    cout << ". 5.Delete an already exist teacher from the list     ." << endl;
-    cout << ". 6.Alphabetical distribution                         ." << endl;
-    cout << ". 7.Random distribution                               ." << endl;
-    cout << ". 8.Exit                                              ." << endl;
-    cout << "......................................................." << endl;
-    bool flag = false;
+string schoolDirectory;
 
+bool menu(fstream& studsFile, fstream& teachersFile, fstream& teamsFile,fstream& schoolFile) {
+    cout << "......................................................." << endl;
+    cout << ". 1. See all schools list                             ." << endl;
+    cout << ". 2. Choose a school to work with                     ." << endl;
+    cout << ". 3.Enter a new school.                               ." << endl;
+    cout << ". 4.Enter a new students in the list                  ." << endl;
+    cout << ". 5.Enter a new teacher in the list                   ." << endl;
+    cout << ". 6.Delete an already existing student from the list  ." << endl;
+    cout << ". 7.Delete an already existint teacher from the list  ." << endl;
+    cout << ". 8. Delete an already existing team from the list    ." << endl;
+    cout << ". 9. Set a team satus                                 ." << endl;
+    cout << ". 10. Display all students                            ." << endl;
+    cout << ". 11. Display all teams                               ." << endl;
+    cout << ". 12. Display all teachers                             ." << endl;
+    cout << ". 13. Sort the students by grade                      ." << endl;
+    cout << ". 14.Alphabetical distribution                        ." << endl;
+    cout << ". 15.Random distribution                              ." << endl;
+    cout << ". 16.Exit                                             ." << endl;
+    cout << "......................................................." << endl;
     cout << endl;
 
-    int option;
+
+
+    int option,numberOfStudents;
     cout << "Please enter your option here -> ";
-    cin >> option;
+    option = readInt();
     cout << endl;
+    
     if (option == 1)
     {
-        SCHOOL sch = enterSchoolData();
-        cout << "School city: ";
-        cout << sch.city << endl;
-        cout << "School name: ";
-        cout << sch.name << endl;
-        cout << "School address: ";
-        cout << sch.address << endl;
-
-        cout << endl << "Students data: " << endl << endl;
-        printStudentsData(sch.students);
-        cout << "Teams data: " << endl << endl;
-        printTeamsData(sch.teams);
-        cout << "Teachers data: " << endl << endl;
-        printTeachersData(sch.teachers);
-
-        flag = true;
-
-        return true;
+        showAllSchoolNames();
     }
-    if (flag)
+    if (option == 2)
     {
-        if (option == 2)
+        showAllSchoolNames();
+        cout << endl;
+        cout << "Enter the school you want to work with: ";
+        cin >> schoolDirectory;
+        setSchoolDirectory(schoolDirectory);
+        closeFiles(studsFile, teachersFile, teamsFile, schoolFile);
+        openFiles(studsFile, teachersFile, teamsFile, schoolFile, schoolDirectory);
+    }
+    if (option == 3)
+    {
+        SCHOOL school = enterSchoolData();
+        schoolDirectory = school.name + " " + school.city;
+        createSchoolFolder(schoolDirectory);
+        setSchoolDirectory(schoolDirectory);
+        closeFiles(studsFile, teachersFile, teamsFile, schoolFile);
+        openFiles(studsFile, teachersFile, teamsFile, schoolFile, schoolDirectory);
+        printInsertStudents(school.students, studsFile);
+    }
+    if (option == 4)
+    {
+        do {
+            cout << "How Many students do you want to enter? You can only enter positive numbers: " << endl;
+            numberOfStudents = readInt();
+        } while (numberOfStudents <= 0);
+        if (!schoolDirectory.empty())
         {
-            enterStudents(br + 1); //need better way to implement (this is for the new student)
-
-
+            vector<STUDENT> students = enterStudents(numberOfStudents);
+            printInsertStudents(students, studsFile);
         }
-        else if (option == 6)
-        {
-
-            //need only to print the date in some way need to take the date without input it again
-
-            /*   cout << "School city: ";
-               cout << sch.city << endl;
-               cout << "School name: ";
-               cout << sch.name << endl;
-               cout << "School address: ";
-               cout << sch.address << endl;
-               cout << endl << "Students data: " << endl << endl;
-               printStudentsData(sch.students);
-               cout << "Teams data: " << endl << endl;
-               printTeamsData(sch.teams);
-               cout << "Teachers data: " << endl << endl;
-               printTeachersData(sch.teachers);*/
-
-        }
-        else if (option == 8)
-        {
-            return false;
+        else {
+            cout<< "No school is selected. Select a school from the list or enter a new school!" << endl;
         }
     }
-
-    /*while (checkStudentsData(students) == false)
+    if (option == 16)
     {
-        enterStudentsData(students);
-    }*/
-
-
+        return false;
+    }
+    return true;
 }
-
+//dir /B | findstr /v /i "template" |findstr /v /i "BACKUP"
 
 int main()
 {
-    while (menu());
-
-
-
-
-
-
-
-    /*fstream studs, teachers, teams, schools;
-    string a, b;
-    studs.open("students.csv", ios::app);
-    teachers.open("teachers.csv", ios::app);
-    teams.open("teams.csv", ios::app);
-    schools.open("schools.csv", ios::app);
-
-
-    studs.close();
-    teachers.close();
-    teams.close();
-    schools.close();*/
+    fstream studs, teachers, teams, school;
+    while (menu(studs, teachers, teams, school));
+    
 }
-
 

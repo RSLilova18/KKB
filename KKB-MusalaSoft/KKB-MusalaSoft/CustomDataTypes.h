@@ -46,5 +46,5 @@ struct SCHOOL {
     string name, city, address;
     vector<TEACHER> teachers;
     vector<TEAM> teams;
-    vector<STUDENT> students;
+    vector<STUDENT> students;  
 };
