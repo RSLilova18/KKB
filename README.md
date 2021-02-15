@@ -1,4 +1,4 @@
-# Team KKB<img align="middle" width="300" height="180" src="https://user-images.githubusercontent.com/56883533/107546315-e68a6380-6bd4-11eb-9f57-e2430e0a4d1f.png" >
+# Team KKB<img align="right" width="200" height="180" src="https://user-images.githubusercontent.com/56883533/107850662-b5947380-6e0c-11eb-85bc-3d83f76ed9d2.png" >
 
 
 
@@ -40,8 +40,13 @@ Georgi N. Georgiev - 10**A**  ->  Quality Engineer
 -	Word and PowerPoint 
 -	Discord, Messenger, Teams 
 #### The program languages used for the project:
-- C++, C
--	HTML, CSS, JavaScript, PHP
+ 
+- C++<img align="right" width="35" height="32" src="https://user-images.githubusercontent.com/56883533/107850857-59caea00-6e0e-11eb-95b1-95a6346e986d.png">
+- C<img align="right" width="35" height="32" src="https://user-images.githubusercontent.com/56883533/107850934-d9f14f80-6e0e-11eb-856e-50b9c484fc97.png">
+-	HTML<img align="right" width="39" height="32" src="https://user-images.githubusercontent.com/56883533/107851048-892e2680-6e0f-11eb-9d9c-3d5e36b1fcf4.png">
+- CSS<img align="right" width="40" height="34" src="https://user-images.githubusercontent.com/56883533/107851050-8b908080-6e0f-11eb-918d-bc249e8c40a5.png">
+- JavaScript<img align="right" width="40" height="34" src="https://user-images.githubusercontent.com/56883533/107851052-8df2da80-6e0f-11eb-8a92-f6b1d4405959.png">
+- PHP<img align="right" width="55" height="39" src="https://user-images.githubusercontent.com/56883533/107851053-90edcb00-6e0f-11eb-973f-f87555cc9558.png">
 
 
 
