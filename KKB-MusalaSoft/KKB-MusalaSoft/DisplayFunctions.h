@@ -142,9 +142,3 @@ void printInsertStudents(vector<STUDENT> students, fstream& file) {
 }
 
 
-void print_state(const std::ios& stream) {
-    std::cout << " good()=" << stream.good() << endl;
-    std::cout << " eof()=" << stream.eof() << endl;
-    std::cout << " fail()=" << stream.fail() << endl;
-    std::cout << " bad()=" << stream.bad() << endl;
-}

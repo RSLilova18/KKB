@@ -11,6 +11,13 @@
 
 using namespace std;
 
+void print_state(const std::ios& stream) {
+    std::cout << " good()=" << stream.good() << endl;
+    std::cout << " eof()=" << stream.eof() << endl;
+    std::cout << " fail()=" << stream.fail() << endl;
+    std::cout << " bad()=" << stream.bad() << endl;
+}
+
 bool checkIfStudentExist(STUDENT& student, vector<STUDENT> studentsList) {
     string role;
     role = student.role;
@@ -152,43 +159,48 @@ int stringToInt(string str) {
     return x;
 }
 
-bool getLastId(string& id, fstream& stream) {
+bool getLastId(string& id, fstream& file) {
     string line;
-    if (!stream.is_open())
+    if (!file.is_open())
     {
         cout << "Couldn't open" << endl;
         return false;
     }
     else
     {
-        stream.seekg(-1, ios_base::end);                // go to one spot before the EOF
+        file.clear();
+        file.seekg(0);
+        print_state(file);
+        //Got to the last character before EOF
+        file.seekg(-1, ios_base::end);                // go to one spot before the EOF
 
         bool keepLooping = true;
         while (keepLooping) {
             char ch;
-            stream.get(ch);                            // Get current byte's data
+            file.get(ch);                            // Get current byte's data
 
-            if ((int)stream.tellg() <= 1) {             // If the data was at or before the 0th byte
-                stream.seekg(0);                       // The first line is the last line
+            if ((int)file.tellg() <= 1) {             // If the data was at or before the 0th byte
+                file.seekg(0);                       // The first line is the last line
                 keepLooping = false;                // So stop there
             }
             else if (ch == '\n') {                   // If the data was a newline
                 keepLooping = false;                // Stop at the current position.
             }
             else {                                  // If the data was neither a newline nor at the 0 byte
-                stream.seekg(-2, ios_base::cur);        // Move to the front of that data, then to the front of the data before it
+                file.seekg(-2, ios_base::cur);        // Move to the front of that data, then to the front of the data before it
             }
         }
 
-        getline(stream, line);
+        getline(file, line);
+        cout << endl << line << endl;
         int lastComaId;
         lastComaId = line.find(',');
         id = line.substr(0, lastComaId);
-        stream.clear();
-        stream.seekg(0);
+        file.clear();
+        file.seekg(0);
+        cout << id << endl;
         return true;
     }
-    cout << "Not found" << endl;
     return false;
 }
 
@@ -196,7 +208,7 @@ void insertStdent(STUDENT student, fstream& file, string id) {
 
     string line;
     line = id + "," + student.name + "," + student.surname + "," + to_string(student.classStudent) + ",";
-    line += student.nameClass + "," + to_string(student.grade) + "," + student.mail + '\n';
+    line += student.nameClass + "," + to_string(student.grade) + "," + student.mail+'\n';
     file << line;
 }
 
@@ -204,6 +216,7 @@ bool insertStudentsIntoFile(vector<STUDENT> students, fstream& file) {
     string id;
     int intId;
     if (getLastId(id, file)) {
+        cout <<"id: " <<id<<endl;
         intId = stringToInt(id);
         intId++;
         id = to_string(intId);

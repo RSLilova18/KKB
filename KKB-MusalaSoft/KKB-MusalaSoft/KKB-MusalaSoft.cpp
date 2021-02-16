@@ -16,6 +16,8 @@ using namespace std;
 string schoolDirectory;
 
 bool menu(fstream& studsFile, fstream& teachersFile, fstream& teamsFile,fstream& schoolFile) {
+    closeFiles(studsFile, teachersFile,  teamsFile, schoolFile);
+    openFiles(studsFile, teachersFile, teamsFile, schoolFile, schoolDirectory);
     cout << "......................................................." << endl;
     cout << ". 1. See all schools list                             ." << endl;
     cout << ". 2. Choose a school to work with                     ." << endl;
@@ -52,10 +54,12 @@ bool menu(fstream& studsFile, fstream& teachersFile, fstream& teamsFile,fstream&
         showAllSchoolNames();
         cout << endl;
         cout << "Enter the school you want to work with: ";
-        cin >> schoolDirectory;
+        cin.ignore();
+        getline(cin, schoolDirectory);
         setSchoolDirectory(schoolDirectory);
         closeFiles(studsFile, teachersFile, teamsFile, schoolFile);
         openFiles(studsFile, teachersFile, teamsFile, schoolFile, schoolDirectory);
+        studsFile.flush();
     }
     if (option == 3)
     {
@@ -66,6 +70,7 @@ bool menu(fstream& studsFile, fstream& teachersFile, fstream& teamsFile,fstream&
         closeFiles(studsFile, teachersFile, teamsFile, schoolFile);
         openFiles(studsFile, teachersFile, teamsFile, schoolFile, schoolDirectory);
         printInsertStudents(school.students, studsFile);
+        studsFile.flush();
     }
     if (option == 4)
     {
@@ -77,6 +82,7 @@ bool menu(fstream& studsFile, fstream& teachersFile, fstream& teamsFile,fstream&
         {
             vector<STUDENT> students = enterStudents(numberOfStudents);
             printInsertStudents(students, studsFile);
+            studsFile.flush();
         }
         else {
             cout<< "No school is selected. Select a school from the list or enter a new school!" << endl;
