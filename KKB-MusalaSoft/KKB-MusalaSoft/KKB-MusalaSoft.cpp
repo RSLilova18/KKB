@@ -16,8 +16,6 @@ using namespace std;
 string schoolDirectory;
 
 bool menu(fstream& studsFile, fstream& teachersFile, fstream& teamsFile,fstream& schoolFile) {
-    closeFiles(studsFile, teachersFile,  teamsFile, schoolFile);
-    openFiles(studsFile, teachersFile, teamsFile, schoolFile, schoolDirectory);
     cout << "......................................................." << endl;
     cout << ". 1. See all schools list                             ." << endl;
     cout << ". 2. Choose a school to work with                     ." << endl;
@@ -90,6 +88,7 @@ bool menu(fstream& studsFile, fstream& teachersFile, fstream& teamsFile,fstream&
     }
     if (option == 16)
     {
+        closeFiles(studsFile, teachersFile, teamsFile, schoolFile);
         return false;
     }
     return true;

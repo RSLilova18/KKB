@@ -94,25 +94,29 @@ vector<TEACHER> enterTeachers(int numberOfTeachers, vector<TEAM> teams) {
 void openFiles(fstream& studs, fstream& teachers,fstream& teams,fstream& school, string path) {
 
     
-    studs.open(path+"/StudentFile.csv", ios::app);
-    teachers.open(path+ "/Teachers.csv", ios::app);
-    teams.open(path+"/Teams.csv", ios::app);
-    school.open(path+"/School.csv", ios::app);
+    studs.open(path+"/StudentFile.csv");
+    teachers.open(path+ "/Teachers.csv");
+    teams.open(path+"/Teams.csv");
+    school.open(path+"/School.csv");
     if (!studs.is_open())
     {
         cout << "1 problem" << endl;
+        print_state(studs);
     }
     if (!teachers.is_open())
     {
         cout << "2 problem" << endl;
+        print_state(teachers);
     }
     if (!teams.is_open())
     {
         cout << "3 problem" << endl;
+        print_state(teams);
     }
     if (!school.is_open())
     {
         cout << "4 problem" << endl;
+        print_state(school);
     }
 }
 
@@ -169,7 +173,8 @@ bool getLastId(string& id, fstream& file) {
     else
     {
         file.clear();
-        file.seekg(0);
+        file.seekg(ios::beg);
+        file.seekp(ios::beg);
         print_state(file);
         //Got to the last character before EOF
         file.seekg(-1, ios_base::end);                // go to one spot before the EOF
@@ -192,13 +197,11 @@ bool getLastId(string& id, fstream& file) {
         }
 
         getline(file, line);
-        cout << endl << line << endl;
         int lastComaId;
         lastComaId = line.find(',');
         id = line.substr(0, lastComaId);
         file.clear();
         file.seekg(0);
-        cout << id << endl;
         return true;
     }
     return false;
@@ -207,24 +210,22 @@ bool getLastId(string& id, fstream& file) {
 void insertStdent(STUDENT student, fstream& file, string id) {
 
     string line;
-    line = id + "," + student.name + "," + student.surname + "," + to_string(student.classStudent) + ",";
-    line += student.nameClass + "," + to_string(student.grade) + "," + student.mail+'\n';
+    line = '\n'+id + "," + student.name + "," + student.surname + "," + to_string(student.classStudent) + ",";
+    line += student.nameClass + "," + to_string(student.grade) + "," + student.mail;
+    file.seekp(-1, ios_base::end);
     file << line;
 }
 
 bool insertStudentsIntoFile(vector<STUDENT> students, fstream& file) {
     string id;
     int intId;
-    if (getLastId(id, file)) {
-        cout <<"id: " <<id<<endl;
-        intId = stringToInt(id);
-        intId++;
-        id = to_string(intId);
         for (size_t i = 0; i < students.size(); i++)
         {
+            getLastId(id, file);
+            intId = stringToInt(id);
+            intId++;
+            id = to_string(intId);
             insertStdent(students[i], file, id);
         }
         return true;
-    }
-    return false;
 }
