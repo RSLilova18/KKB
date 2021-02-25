@@ -211,7 +211,7 @@ void insertStdent(STUDENT student, fstream& file, string id) {
 
     string line;
     line = '\n'+id + "," + student.name + "," + student.surname + "," + to_string(student.classStudent) + ",";
-    line += student.nameClass + "," + to_string(student.grade) + "," + student.mail;
+    line += student.nameClass + "," + to_string(student.grade) + "," + student.mail + ",";
     file.seekp(-1, ios_base::end);
     file << line;
 }
