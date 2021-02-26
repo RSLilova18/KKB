@@ -32,7 +32,7 @@ void STUDENT::printStudent() {
     cout << endl;
     cout << "--" << name << " " << surname << " " << classStudent << " " << nameClass;
     cout << endl;
-    cout << "--" << "Role, grade and email: " << role << " " << grade << " - " << mail;
+    cout << "--" << "Grade and email: " << " " << grade << " - " << mail;
     cout << endl;
     cout << "--------------------------------------------------------------------------------";
     cout << endl;

@@ -11,6 +11,7 @@ using namespace std;
 
 struct STUDENT
 {
+    int id;
     string name, surname, role, mail, nameClass;
     int classStudent;
     float grade;
@@ -47,4 +48,13 @@ struct SCHOOL {
     vector<TEACHER> teachers;
     vector<TEAM> teams;
     vector<STUDENT> students;  
+};
+
+enum STUDENT_FIELD_ORDER {
+    NAME,
+    SURRNAME,
+    CLASS_STUDENT,
+    CLASS_NAME,
+    GRADE,
+    MAIL
 };

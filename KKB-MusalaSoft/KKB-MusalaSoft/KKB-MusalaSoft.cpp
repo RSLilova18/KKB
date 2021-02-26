@@ -14,61 +14,27 @@
 using namespace std;
 
 string schoolDirectory;
-enum STUDENT_FIELD_ORDER {
-	NAME,
-	SURRNAME,
-	CLASS_STUDENT,
-	CLASS_NAME,
-	GRADE,
-	MAIL
-};
-vector<STUDENT> getStudentsFromFile(fstream &studentsList) {
-	vector<STUDENT> students;
-	string line,segment;
-	size_t comaIndex = 0;
-	STUDENT_FIELD_ORDER order;
-	size_t i = 0;
-	while (getline(studentsList, line)) {
-		i = 0;
-		STUDENT student;
-		comaIndex = line.find(',');
-		segment = line.substr(0, comaIndex);
-		if (segment == "0") continue;
-		line = line.substr(comaIndex + 1, line.size() - comaIndex - 1);
-		do {
-			comaIndex = line.find(',');
-			segment = line.substr(0, comaIndex);
-			line = line.substr(comaIndex + 1, line.size() - comaIndex - 1);
-			order = (STUDENT_FIELD_ORDER)i;
-			if (order == NAME)
-			{
-				student.name = segment;
-			}
-			if (order == SURRNAME)
-			{
-				student.surname = segment;
-			}
-			if (order == MAIL)
-			{
-				student.mail = segment;
-			}
-			if (order == CLASS_NAME)
-			{
-				student.nameClass = segment;
-			}
-			if (order == CLASS_STUDENT)
-			{
-				student.classStudent = stringToInt(segment);
-			}
-			if (order == GRADE)
-			{
-				student.grade = stof(segment);
-			}
-			i++;
-		} while (line.find(',') != string::npos);
-		students.push_back(student);
-	}
-	return students;
+void insertTeam(TEAM team, fstream& file, string id) {
+    string line;
+    line = '\n' + id + "," + team.name + "," + team.description + "," + team.date + "," + team.status + ",";
+    line += to_string(team.backEnd.id) + "," + to_string(team.frontEnd.id) + "," + to_string(team.scrumMaster.id);
+    line +="," + to_string(team.qaEngineer.id) + ",";
+    file.seekp(-1, ios_base::end);
+    file << ",";
+    file << line;
+}
+bool insertTeamsIntoFile(vector<TEAM> teams, fstream& file) {
+    string id;
+    int intId;
+    for (size_t i = 0; i < teams.size(); i++)
+    {
+        getLastId(id, file);
+        intId = stringToInt(id);
+        intId++;
+        id = to_string(intId);
+        insertTeam(teams[i],file,id);
+    }
+    return true;
 }
 
 bool menu(fstream& studsFile, fstream& teachersFile, fstream& teamsFile,fstream& schoolFile) {
@@ -111,10 +77,18 @@ bool menu(fstream& studsFile, fstream& teachersFile, fstream& teamsFile,fstream&
         cout << "Enter the school you want to work with: ";
         cin.ignore();
         getline(cin, schoolDirectory);
-        setSchoolDirectory(schoolDirectory);
-        closeFiles(studsFile, teachersFile, teamsFile, schoolFile);
-        openFiles(studsFile, teachersFile, teamsFile, schoolFile, schoolDirectory);
-        studsFile.flush();
+		if (verifySelectedSchool(schoolDirectory))
+		{
+			setSchoolDirectory(schoolDirectory);
+			closeFiles(studsFile, teachersFile, teamsFile, schoolFile);
+			openFiles(studsFile, teachersFile, teamsFile, schoolFile, schoolDirectory);
+			studsFile.flush();
+			return true;
+		}
+		cout << endl;
+		cout << "This school doesn't exist!" << endl;
+		cout << "NO SCHOOL IS SELECTED!" << endl;
+
     }
     if (option == 3)
     {
@@ -151,9 +125,11 @@ bool menu(fstream& studsFile, fstream& teachersFile, fstream& teamsFile,fstream&
 				cout << "How many teams do you want to enter: ";
 				enterable = readInt();
 			} while (enterable <= 0);
+            print_state(studsFile);
 			vector<STUDENT> students = getStudentsFromFile(studsFile);
-			printStudentsData(students);
-			//vector<TEAM> teams = enterTeams(enterable,students);
+            printStudentsData(students);
+			vector<TEAM> teams = enterTeams(enterable,students);
+            insertTeamsIntoFile(teams, teamsFile);
 		}
 		else {
 			cout << "No school is selected. Select a school from the list or enter a new school!" << endl;

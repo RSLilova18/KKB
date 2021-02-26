@@ -210,9 +210,10 @@ bool getLastId(string& id, fstream& file) {
 void insertStdent(STUDENT student, fstream& file, string id) {
 
     string line;
-    line = '\n'+id + "," + student.name + "," + student.surname + "," + to_string(student.classStudent) + ",";
+    line = '\n' + id + "," + student.name + "," + student.surname + "," + to_string(student.classStudent) + ",";
     line += student.nameClass + "," + to_string(student.grade) + "," + student.mail + ",";
-    file.seekp(-1, ios_base::end);
+    file.seekp(-1,ios_base::end);
+    file << ",";
     file << line;
 }
 
@@ -227,5 +228,62 @@ bool insertStudentsIntoFile(vector<STUDENT> students, fstream& file) {
             id = to_string(intId);
             insertStdent(students[i], file, id);
         }
-        return true;
+    return true;
+}
+
+vector<STUDENT> getStudentsFromFile(fstream& studentsList) {
+    vector<STUDENT> students;
+    string line, token;
+    size_t comaIndex = 0;
+    STUDENT_FIELD_ORDER order;
+    size_t i = 0;
+    while (getline(studentsList, line)) {
+        i = 0;
+        STUDENT student;
+        comaIndex = line.find(',');
+        token = line.substr(0, comaIndex);
+        if (token == "0") continue;
+        student.id = stringToInt(token);
+        line = line.substr(comaIndex + 1, line.size() - comaIndex - 1);
+        do {
+            comaIndex = line.find(',');
+            token = line.substr(0, comaIndex);
+            line = line.substr(comaIndex + 1, line.size() - comaIndex - 1);
+            order = (STUDENT_FIELD_ORDER)i;
+            if (order == NAME)
+            {
+                student.name = token;
+            }
+            if (order == SURRNAME)
+            {
+                student.surname = token;
+            }
+            if (order == MAIL)
+            {
+                student.mail = token;
+            }
+            if (order == CLASS_NAME)
+            {
+                student.nameClass = token;
+            }
+            if (order == CLASS_STUDENT)
+            {
+                student.classStudent = stringToInt(token);
+            }
+            if (order == GRADE)
+            {
+                student.grade = stof(token);
+            }
+            i++;
+        } while (line.find(',') != string::npos);
+        students.push_back(student);
+    }
+    return students;
+}
+
+bool verifySelectedSchool(string school) {
+    fstream file;
+    school = "../../CSVFiles/" + school;
+    file.open(school + "/StudentFile.csv");
+    return file.is_open();
 }
