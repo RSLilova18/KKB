@@ -86,6 +86,7 @@ img
 body,html{
   margin:0;
   padding:0;
+  
 }
 
 header{
@@ -102,13 +103,13 @@ h1
   margin-left: -58% ;
   margin-top:110px;
   font-family: 'Alfa Slab One', cursive;
-  color: #39ca74;
+  
 
 }
 
 
 
-ul
+.sec1 ul
 {
   width:auto;
   float:right;
@@ -116,13 +117,13 @@ ul
 
 }
 
-li{
+.sec1 li{
   display:inline-block;
   padding: 15px 30px;
 }
 
 
-a
+.sec1 a
 {
   text-align: center;
   color:#c0b8b8;
@@ -132,8 +133,179 @@ a
 }
 
 
-a:hover{
+.sec1 a:hover{
    color: #3d9ef2;
    transition: 0.5s;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+#section1 {
+	height: 960px;
+	background-color: #fff;
+	-webkit-background-size: cover;
+	background-size: cover;
+	background-position: center center;
+	position: relative;
+}
+
+
+
+
+
+
+/* footer */
+
+#section2 {
+	height: 350px;
+  background: linear-gradient(rgba(37, 37, 37, 0.8), rgba(100, 100, 100, 0.8));
+	-webkit-background-size: cover;
+	background-size: cover;
+	background-position: center center;
+	position: relative;
+}
+
+.sec2 h2
+{
+  margin-left:1450px;
+  font-size: 40px;
+  font-family: 'Open Sans', sans-serif;
+  color:white;
+
+}
+
+
+.vl {
+  border-left: 3px solid rgb(219, 219, 219);
+  height: 150px;
+  margin-left:1200px;
+}
+
+.sec2 p{
+  margin-left:1250px;
+  margin-top:-130px;
+  font-size: 15px;
+  font-family: 'Open Sans', sans-serif;
+  color:white;
+
+}
+
+.sec2 h3
+{
+  margin-left:550px;
+  margin-top:-215px;
+  font-family: 'Open Sans', sans-serif;
+  color:white;
+  font-size: 38px;
+}
+.sec2 ul
+{
+  width:auto;
+  float:right;
+  margin-top:8px;
+ 
+ 
+}
+.sec2 li{
+  display:inline-block;
+  padding: 15px 30px;
+}
+
+
+.sec2 a
+{
+  text-align: center;
+  color:#ffffff;
+  text-decoration: none;
+  font-family: 'Open Sans', sans-serif;
+  font-size:1.2vw;
+}
+
+
+.sec2 a:hover{
+   color: #3d9ef2;
+   transition: 0.5s;
+}
+
+.footerNav
+{
+  margin-right: 900px;
+ 
+}
+
+
+
+.contactMail p
+{
+  margin-top:120px;
+  margin-left:20px;
+}
+.contactMail h5
+{
+  margin-top:-57px;
+  margin-left:60px;
+  color:white;
+  font-family: 'Open Sans', sans-serif;
+}
+
+
+
+.contactPhone h5
+{
+  margin-top:-22px;
+  margin-left:60px;
+  color:white;
+  font-family: 'Open Sans', sans-serif;
+}
+.contactPhone p
+{
+  margin-bottom:-17px;
+  margin-left:22px;
+}
+.CopyRightFooter
+{
+  
+  color:#b4b4b4;
+  height:30px;
+  text-align:center;
+  position:absolute;
+  bottom: 0px;
+  left: 0px;
+  padding-top: 20px;
+  width:100%;
+}
+
+
+
+.socialMedia
+{
+  margin-left:20px;
+ 
+  word-spacing:15px;
+  
+}
+
+
+.border
+{
+  border-style: groove;
+  width:10%;
+  margin-left:20px;
+  border-radius: 12px;
+}
+
+
+
+
+
 
