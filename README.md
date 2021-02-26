@@ -36,9 +36,9 @@ Georgi N. Georgiev - 10**A**  ->  Quality Engineer
 
 
 -	<img src="https://user-images.githubusercontent.com/56883533/109301809-1b3b2380-7841-11eb-9135-629053817cec.png" width="15px" height="15px"> Visual Studio 
-- <img src="https://user-images.githubusercontent.com/56883533/109317992-fdc48480-7855-11eb-9cf0-c792a966ca66.png" width="23px" height="17px"> Github 
+- <img src="https://user-images.githubusercontent.com/56883533/109317992-fdc48480-7855-11eb-9cf0-c792a966ca66.png" width="44px" height="25px"> Github 
 -	<img src="https://user-images.githubusercontent.com/56883533/109316804-a7a31180-7854-11eb-8fe9-a6092ca196e4.png" width="36px" height="20px"> Word, Excel, PowerPoint 
--	<img src="https://user-images.githubusercontent.com/56883533/109316818-ab369880-7854-11eb-8ed2-da60a5f73a42.png" width="25px" height="22px"> Discord, Messenger, Teams 
+-	<img src="https://user-images.githubusercontent.com/56883533/109316818-ab369880-7854-11eb-8ed2-da60a5f73a42.png" width="44px" height="25px"> Discord, Messenger, Teams 
 #### The program languages used for the project:
 
 -   <img src="https://user-images.githubusercontent.com/56883533/107850857-59caea00-6e0e-11eb-95b1-95a6346e986d.png" width="15px" height="15px"> C++
