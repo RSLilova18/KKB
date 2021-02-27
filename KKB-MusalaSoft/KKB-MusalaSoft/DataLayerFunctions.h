@@ -377,3 +377,53 @@ bool verifySelectedSchool(string school) {
     file.open(school + "/StudentFile.csv");
     return file.is_open();
 }
+
+void insertTeam(TEAM team, fstream& file, string id) {
+    string line;
+    line = '\n' + id + "," + team.name + "," + team.description + "," + team.date + "," + team.status + ",";
+    line += to_string(team.backEnd.id) + "," + to_string(team.frontEnd.id) + "," + to_string(team.scrumMaster.id);
+    line += "," + to_string(team.qaEngineer.id) + ",";
+    file.seekp(-1, ios_base::end);
+    file << ",";
+    file << line;
+    file.seekp(ios_base::beg);
+}
+bool insertTeamsIntoFile(vector<TEAM> teams, fstream& file) {
+    string id;
+    int intId;
+    for (size_t i = 0; i < teams.size(); i++)
+    {
+        getLastId(id, file);
+        intId = stringToInt(id);
+        intId++;
+        id = to_string(intId);
+        insertTeam(teams[i], file, id);
+    }
+    return true;
+}
+
+void to_lower(string& str)
+{
+    for (size_t i = 0; i < str.size(); i++)
+    {
+        str[i] = tolower(str[i]);
+    }
+}
+
+bool cmpStudentsAlphabetically(STUDENT first, STUDENT second)
+{
+    string firstName, secondName;
+    firstName = first.name + first.surname;
+    secondName = second.name + second.surname;
+    to_lower(firstName);
+    to_lower(secondName);
+    for (size_t i = 0; i < min(firstName.size(), secondName.size()); i++)
+    {
+        if (firstName[i] == secondName[i])
+        {
+            continue;
+        }
+        return firstName[i] < secondName[i];
+    }
+    return firstName.size() < secondName.size();
+}

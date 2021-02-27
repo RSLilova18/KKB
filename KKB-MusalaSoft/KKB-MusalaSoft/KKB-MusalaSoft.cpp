@@ -4,6 +4,7 @@
 #include <cmath>
 #include <fstream>
 #include <string>
+#include <algorithm>
 #include "CustomDataTypes.h" 
 #include "CustomOperators.h"
 #include "DataLayerFunctions.h" 
@@ -14,29 +15,6 @@
 using namespace std;
 
 string schoolDirectory;
-void insertTeam(TEAM team, fstream& file, string id) {
-    string line;
-    line = '\n' + id + "," + team.name + "," + team.description + "," + team.date + "," + team.status + ",";
-    line += to_string(team.backEnd.id) + "," + to_string(team.frontEnd.id) + "," + to_string(team.scrumMaster.id);
-    line +="," + to_string(team.qaEngineer.id) + ",";
-    file.seekp(-1, ios_base::end);
-    file << ",";
-    file << line;
-    file.seekp(ios_base::beg);
-}
-bool insertTeamsIntoFile(vector<TEAM> teams, fstream& file) {
-    string id;
-    int intId;
-    for (size_t i = 0; i < teams.size(); i++)
-    {
-        getLastId(id, file);
-        intId = stringToInt(id);
-        intId++;
-        id = to_string(intId);
-        insertTeam(teams[i],file,id);
-    }
-    return true;
-}
 
 bool menu(fstream& studsFile, fstream& teachersFile, fstream& teamsFile,fstream& schoolFile) {
     cout << "......................................................." << endl;
@@ -153,9 +131,28 @@ bool menu(fstream& studsFile, fstream& teachersFile, fstream& teamsFile,fstream&
 	}
     if (option == 11)
     {
-        cout << "Full list of students: ";
-        vector<STUDENT> students = getStudentsFromFile(studsFile);
-        printStudentsData(students);
+        if (!schoolDirectory.empty()) {
+            cout << "Full list of students: ";
+            vector<STUDENT> students = getStudentsFromFile(studsFile);
+            printStudentsData(students);
+            return true;
+        }
+        cout << endl;
+        cout << "No school is selected!" << endl;
+        cout << endl;
+    }
+    if (option == 15)
+    {
+        if (!schoolDirectory.empty())
+        {
+            cout << "Full list of alphabetically sorted students: " << endl;
+            vector<STUDENT> students = getStudentsFromFile(studsFile);
+            sort(students.begin(), students.end(), cmpStudentsAlphabetically);
+            printStudentsData(students);
+        }
+        cout << endl;
+        cout << "No school is selected!" << endl;
+        cout << endl;
     }
     if (option == 17)
     {
