@@ -22,6 +22,7 @@ struct STUDENT
 
 struct TEAM
 {
+    int id;
     string name, description, date, status;
     STUDENT scrumMaster;
     STUDENT backEnd;
@@ -35,6 +36,7 @@ struct TEAM
 };
 
 struct TEACHER {
+    int id;
     string name, surrname, mail;
     vector<string> teamNames;
 
@@ -52,9 +54,22 @@ struct SCHOOL {
 
 enum STUDENT_FIELD_ORDER {
     NAME,
-    SURRNAME,
+    SURNAME,
     CLASS_STUDENT,
     CLASS_NAME,
     GRADE,
     MAIL
+};
+
+
+enum TEAM_FIELD_ORDER
+{
+    TEAMNAME,
+    DESCRIPTION,
+    TEAMDATE,
+    STATUS,
+    BACKEND,
+    FRONTEND,
+    SCRUM,
+    QA
 };

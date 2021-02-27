@@ -255,7 +255,7 @@ vector<STUDENT> getStudentsFromFile(fstream& studentsList) {
             {
                 student.name = token;
             }
-            if (order == SURRNAME)
+            if (order == SURNAME)
             {
                 student.surname = token;
             }
@@ -279,9 +279,98 @@ vector<STUDENT> getStudentsFromFile(fstream& studentsList) {
         } while (line.find(',') != string::npos);
         students.push_back(student);
     }
+    studentsList.seekp(ios_base::beg);
+    studentsList.seekg(ios_base::beg);
     return students;
 }
 
+
+STUDENT getIDfromStudentFile(int intToken, vector<STUDENT> students)
+{
+    for (size_t i = 0; i < students.size(); i++)
+    {
+        if (intToken = students[i].id)
+        {
+            return students[i];
+            break;
+        }
+    }
+}
+vector<TEAM> getTeamsFromFile(fstream& teamsList, vector<STUDENT> students)
+{
+    vector<TEAM> teams;
+    string line, token;
+    size_t comaIndex = 0;
+    TEAM_FIELD_ORDER order;
+    int intToken;
+    size_t i = 0;
+    while (getline(teamsList, line))
+    {
+        i = 0;
+        TEAM team;
+        comaIndex = line.find(',');
+        token = line.substr(0, comaIndex);
+        if (token == "0") continue;
+        team.id = stringToInt(token);
+        line = line.substr(comaIndex + 1, line.size() - comaIndex - 1);
+
+
+        do {
+
+            comaIndex = line.find(',');
+            token = line.substr(0, comaIndex);
+            line = line.substr(comaIndex + 1, line.size() - comaIndex - 1);
+            order = (TEAM_FIELD_ORDER)i;
+            if (order == TEAMNAME)
+            {
+                team.name = token;
+            }
+            if (order == DESCRIPTION)
+            {
+                team.description = token;
+            }
+            if (order == TEAMDATE)
+            {
+                team.date = token;
+            }
+            if (order == STATUS)
+            {
+                team.status = token;
+            }
+            if (order == BACKEND)
+            {
+               intToken = stringToInt(token);
+            
+
+                team.backEnd = getIDfromStudentFile(intToken, students);
+            }
+            if (order == FRONTEND)
+            {
+                 intToken = stringToInt(token);
+           
+                 team.frontEnd=getIDfromStudentFile(intToken,students);
+            }
+            if (order == SCRUM)
+            {
+                 intToken = stringToInt(token);
+               
+
+                team.scrumMaster = getIDfromStudentFile(intToken, students);
+            }
+            if (order == QA)
+            {
+                 intToken = stringToInt(token);
+                
+                team.qaEngineer = getIDfromStudentFile(intToken, students);
+            }
+            i++;
+        } while (line.find(',') != string::npos);
+        teams.push_back(team);
+    }
+    teamsList.seekp(ios_base::beg);
+    teamsList.seekg(ios_base::beg);
+    return teams;
+}
 bool verifySelectedSchool(string school) {
     fstream file;
     school = "../../CSVFiles/" + school;

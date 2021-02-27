@@ -118,6 +118,22 @@ bool menu(fstream& studsFile, fstream& teachersFile, fstream& teamsFile,fstream&
             cout<< "No school is selected. Select a school from the list or enter a new school!" << endl;
         }
     }
+    if (option == 5)
+    {
+        
+        if (!schoolDirectory.empty())
+        {
+            do{
+                cout << "How many teachers do you want to enter?"<<endl;
+                enterable = readInt();
+            } while (enterable <= 0);
+            vector<STUDENT> students=getStudentsFromFile(studsFile);
+            vector<TEAM> teams = getTeamsFromFile(teamsFile,students);
+
+            vector<TEACHER> teachers = enterTeachers(enterable,teams);
+            
+        }
+    }
 	if (option == 6) 
 	{
 		if (!schoolDirectory.empty())
@@ -155,6 +171,6 @@ int main()
 {
     fstream studs, teachers, teams, school;
     while (menu(studs, teachers, teams, school));
-	
+ 
 }
 
