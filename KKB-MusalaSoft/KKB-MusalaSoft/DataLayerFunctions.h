@@ -215,6 +215,7 @@ void insertStdent(STUDENT student, fstream& file, string id) {
     file.seekp(-1,ios_base::end);
     file << ",";
     file << line;
+    file.seekp(ios_base::beg);
 }
 
 bool insertStudentsIntoFile(vector<STUDENT> students, fstream& file) {

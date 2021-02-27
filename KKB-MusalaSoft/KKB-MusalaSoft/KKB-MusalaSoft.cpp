@@ -22,6 +22,7 @@ void insertTeam(TEAM team, fstream& file, string id) {
     file.seekp(-1, ios_base::end);
     file << ",";
     file << line;
+    file.seekp(ios_base::beg);
 }
 bool insertTeamsIntoFile(vector<TEAM> teams, fstream& file) {
     string id;
@@ -80,8 +81,8 @@ bool menu(fstream& studsFile, fstream& teachersFile, fstream& teamsFile,fstream&
 		if (verifySelectedSchool(schoolDirectory))
 		{
 			setSchoolDirectory(schoolDirectory);
-			closeFiles(studsFile, teachersFile, teamsFile, schoolFile);
-			openFiles(studsFile, teachersFile, teamsFile, schoolFile, schoolDirectory);
+            closeFiles(studsFile, teachersFile, teamsFile, schoolFile);
+            openFiles(studsFile, teachersFile, teamsFile, schoolFile, schoolDirectory);
 			studsFile.flush();
 			return true;
 		}
@@ -125,11 +126,10 @@ bool menu(fstream& studsFile, fstream& teachersFile, fstream& teamsFile,fstream&
 				cout << "How many teams do you want to enter: ";
 				enterable = readInt();
 			} while (enterable <= 0);
-            print_state(studsFile);
 			vector<STUDENT> students = getStudentsFromFile(studsFile);
-            printStudentsData(students);
 			vector<TEAM> teams = enterTeams(enterable,students);
             insertTeamsIntoFile(teams, teamsFile);
+            teamsFile.flush();
 		}
 		else {
 			cout << "No school is selected. Select a school from the list or enter a new school!" << endl;
@@ -140,6 +140,7 @@ bool menu(fstream& studsFile, fstream& teachersFile, fstream& teamsFile,fstream&
         closeFiles(studsFile, teachersFile, teamsFile, schoolFile);
         return false;
     }
+    
     return true;
 }
 //dir /B | findstr /v /i "template" |findstr /v /i "BACKUP"
