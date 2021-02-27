@@ -149,6 +149,7 @@ bool menu(fstream& studsFile, fstream& teachersFile, fstream& teamsFile,fstream&
             vector<STUDENT> students = getStudentsFromFile(studsFile);
             sort(students.begin(), students.end(), cmpStudentsAlphabetically);
             printStudentsData(students);
+            return true;
         }
         cout << endl;
         cout << "No school is selected!" << endl;
