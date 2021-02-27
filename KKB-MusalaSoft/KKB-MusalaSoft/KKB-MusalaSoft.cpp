@@ -50,9 +50,9 @@ bool menu(fstream& studsFile, fstream& teachersFile, fstream& teamsFile,fstream&
     cout << ". 8.Delete an already existint teacher from the list  ." << endl;
     cout << ". 9. Delete an already existing team from the list    ." << endl;
     cout << ". 10. Set a team satus                                ." << endl;
-    cout << ". 11. Display all students                            ." << endl;
-    cout << ". 12. Display all teams                               ." << endl;
-    cout << ". 13. Display all teachers                            ." << endl;
+    cout << ". 11. Display all students in the current school      ." << endl;
+    cout << ". 12. Display all teams in the current school         ." << endl;
+    cout << ". 13. Display all teachers in the current school      ." << endl;
     cout << ". 14. Sort the students by grade                      ." << endl;
     cout << ". 15.Alphabetical distribution                        ." << endl;
     cout << ". 16.Random distribution                              ." << endl;
@@ -135,6 +135,12 @@ bool menu(fstream& studsFile, fstream& teachersFile, fstream& teamsFile,fstream&
 			cout << "No school is selected. Select a school from the list or enter a new school!" << endl;
 		}
 	}
+    if (option == 11)
+    {
+        cout << "Full list of students: ";
+        vector<STUDENT> students = getStudentsFromFile(studsFile);
+        printStudentsData(students);
+    }
     if (option == 17)
     {
         closeFiles(studsFile, teachersFile, teamsFile, schoolFile);
