@@ -312,3 +312,29 @@ bool insertTeamsIntoFile(vector<TEAM> teams, fstream& file) {
     }
     return true;
 }
+
+void to_lower(string& str)
+{
+    for (size_t i = 0; i < str.size(); i++)
+    {
+        str[i] = tolower(str[i]);
+    }
+}
+
+bool cmpStudentsAlphabetically(STUDENT first, STUDENT second)
+{
+    string firstName, secondName;
+    firstName = first.name + first.surname;
+    secondName = second.name + second.surname;
+    to_lower(firstName);
+    to_lower(secondName);
+    for (size_t i = 0; i < min(firstName.size(), secondName.size()); i++)
+    {
+        if (firstName[i] == secondName[i])
+        {
+            continue;
+        }
+        return firstName[i] < secondName[i];
+    }
+    return firstName.size() < secondName.size();
+}
