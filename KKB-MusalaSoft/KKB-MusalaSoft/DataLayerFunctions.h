@@ -288,3 +288,27 @@ bool verifySelectedSchool(string school) {
     file.open(school + "/StudentFile.csv");
     return file.is_open();
 }
+
+void insertTeam(TEAM team, fstream& file, string id) {
+    string line;
+    line = '\n' + id + "," + team.name + "," + team.description + "," + team.date + "," + team.status + ",";
+    line += to_string(team.backEnd.id) + "," + to_string(team.frontEnd.id) + "," + to_string(team.scrumMaster.id);
+    line += "," + to_string(team.qaEngineer.id) + ",";
+    file.seekp(-1, ios_base::end);
+    file << ",";
+    file << line;
+    file.seekp(ios_base::beg);
+}
+bool insertTeamsIntoFile(vector<TEAM> teams, fstream& file) {
+    string id;
+    int intId;
+    for (size_t i = 0; i < teams.size(); i++)
+    {
+        getLastId(id, file);
+        intId = stringToInt(id);
+        intId++;
+        id = to_string(intId);
+        insertTeam(teams[i], file, id);
+    }
+    return true;
+}
