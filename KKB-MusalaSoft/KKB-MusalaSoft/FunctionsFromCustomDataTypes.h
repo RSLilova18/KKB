@@ -104,9 +104,25 @@ void TEAM::printTeam()
     cout << endl;
 }
 
+TEAM TEACHER::enterTeamData() {
+    TEAM team;
+    cin >> team.name;
+    return team;
+}
+
+void TEACHER::teamValidationPrint(TEAM& team, vector<TEAM> teams) {
+    while (!checkIfTeamExist(team, teams))
+    {
+        cout << endl;
+        cout << "This team does not exist! Try again!" << endl;
+        cout << endl;
+        team = TEACHER::enterTeamData();
+    }
+}
 void TEACHER::enterTeacherData(vector<TEAM> teams, int teacherNumberCount =1) {
     int teamsMentoredCount;
     string nameTeamTemp;
+    TEAM team;
     cout << teacherNumberCount << ".Enter teacher name: ";
     cin >> name;
     cout << teacherNumberCount << ".Enter teacher surname: ";
@@ -116,15 +132,12 @@ void TEACHER::enterTeacherData(vector<TEAM> teams, int teacherNumberCount =1) {
 
     cout << "How many teams does the teacher mentors: ";
     cin >> teamsMentoredCount;
+    cout << "Enter the team names that the teacher mentors: ";
     for (int i = 0; i < teamsMentoredCount; i++)
     {
-        cout << "Enter the team name that the teacher mentors: ";
-        cin >> nameTeamTemp;
-        while (!checkIfTeamNameIsValid(nameTeamTemp, teams)) {
-            cout << "That team doesn't exist in the school! Try again!" << endl;
-            cin >> nameTeamTemp;
-        }
-        teamNames.push_back(nameTeamTemp);
+        team = enterTeamData();
+        teamValidationPrint(team,teams);
+        teamsMentored.push_back(team);
     }
 }
 
@@ -135,9 +148,9 @@ void TEACHER::printTeacherData() {
     cout << endl;
     cout << "Email: " << mail;
     cout << endl;
-    for (size_t j = 0; j < teamNames.size(); j++)
+    for (size_t j = 0; j < teamsMentored.size(); j++)
     {
-        cout << j + 1 << ". Team name : " << teamNames[j] << endl;
+        cout << j + 1 << ". Team name : " << teamsMentored[j].name << endl;
     }
     cout << "--------------------------------------------------------------------------------";
     cout << endl;

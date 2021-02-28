@@ -133,12 +133,5 @@ void showAllSchoolNames() {
     system(c1);
 }
 
-void printInsertStudents(vector<STUDENT> students, fstream& file) {
-    if (insertStudentsIntoFile(students, file)) {
-        cout << "Students inserted succsesfully!" << endl;
-        return;
-    }
-    cout << "A problem occured while inserting the students." << endl;
-}
 
 

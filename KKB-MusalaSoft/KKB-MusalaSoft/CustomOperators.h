@@ -13,3 +13,8 @@ bool operator==(const STUDENT& firstStud, const STUDENT& secondStud)
 {
     return firstStud.mail == secondStud.mail;
 }
+
+bool operator==(const TEAM& firstTeam, const TEAM& secondTeam)
+{
+    return firstTeam.name == secondTeam.name;
+}

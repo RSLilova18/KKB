@@ -33,12 +33,13 @@ bool checkIfStudentExist(STUDENT& student, vector<STUDENT> studentsList) {
     return false;
 }
 
-bool checkIfTeamNameIsValid(string name, vector<TEAM> teams)
+bool checkIfTeamExist(TEAM& team, vector<TEAM> teams)
 {
     for (size_t i = 0; i < teams.size(); i++)
     {
-        if (name == teams[i].name)
+        if (team == teams[i])
         {
+            team = teams[i];
             return true;
         }
     }
@@ -232,7 +233,24 @@ bool insertStudentsIntoFile(vector<STUDENT> students, fstream& file) {
     return true;
 }
 
+STUDENT getIDfromStudentFile(int intToken, vector<STUDENT> students)
+{
+    for (size_t i = 0; i < students.size(); i++)
+    {
+        if (intToken == students[i].id)
+        {
+            return students[i];
+            break;
+        }
+    }
+}
+
 vector<STUDENT> getStudentsFromFile(fstream& studentsList) {
+    studentsList.clear();
+    studentsList.seekg(ios_base::beg);
+    studentsList.seekp(ios_base::beg);
+    print_state(studentsList);
+    cout << studentsList.eof() << endl;
     vector<STUDENT> students;
     string line, token;
     size_t comaIndex = 0;
@@ -279,25 +297,17 @@ vector<STUDENT> getStudentsFromFile(fstream& studentsList) {
         } while (line.find(',') != string::npos);
         students.push_back(student);
     }
-    studentsList.seekp(ios_base::beg);
+    studentsList.clear();
     studentsList.seekg(ios_base::beg);
+    studentsList.seekp(ios_base::beg);
     return students;
 }
 
-
-STUDENT getIDfromStudentFile(int intToken, vector<STUDENT> students)
-{
-    for (size_t i = 0; i < students.size(); i++)
-    {
-        if (intToken = students[i].id)
-        {
-            return students[i];
-            break;
-        }
-    }
-}
 vector<TEAM> getTeamsFromFile(fstream& teamsList, vector<STUDENT> students)
 {
+    teamsList.clear();
+    teamsList.seekp(ios_base::beg);
+    teamsList.seekg(ios_base::beg);
     vector<TEAM> teams;
     string line, token;
     size_t comaIndex = 0;
@@ -339,34 +349,29 @@ vector<TEAM> getTeamsFromFile(fstream& teamsList, vector<STUDENT> students)
             }
             if (order == BACKEND)
             {
-               intToken = stringToInt(token);
-            
-
+                intToken = stringToInt(token);
                 team.backEnd = getIDfromStudentFile(intToken, students);
             }
             if (order == FRONTEND)
             {
-                 intToken = stringToInt(token);
-           
+                 intToken = stringToInt(token);  
                  team.frontEnd=getIDfromStudentFile(intToken,students);
             }
             if (order == SCRUM)
             {
                  intToken = stringToInt(token);
-               
-
-                team.scrumMaster = getIDfromStudentFile(intToken, students);
+                 team.scrumMaster = getIDfromStudentFile(intToken, students);
             }
             if (order == QA)
             {
-                 intToken = stringToInt(token);
-                
+                intToken = stringToInt(token);
                 team.qaEngineer = getIDfromStudentFile(intToken, students);
             }
             i++;
         } while (line.find(',') != string::npos);
         teams.push_back(team);
     }
+    teamsList.clear();
     teamsList.seekp(ios_base::beg);
     teamsList.seekg(ios_base::beg);
     return teams;
@@ -388,7 +393,7 @@ void insertTeam(TEAM team, fstream& file, string id) {
     file << line;
     file.seekp(ios_base::beg);
 }
-bool insertTeamsIntoFile(vector<TEAM> teams, fstream& file) {
+void insertTeamsIntoFile(vector<TEAM> teams, fstream& file) {
     string id;
     int intId;
     for (size_t i = 0; i < teams.size(); i++)
@@ -399,7 +404,6 @@ bool insertTeamsIntoFile(vector<TEAM> teams, fstream& file) {
         id = to_string(intId);
         insertTeam(teams[i], file, id);
     }
-    return true;
 }
 
 void to_lower(string& str)

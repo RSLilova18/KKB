@@ -38,10 +38,11 @@ struct TEAM
 struct TEACHER {
     int id;
     string name, surrname, mail;
-    vector<string> teamNames;
+    vector<TEAM> teamsMentored;
 
+    static TEAM enterTeamData();
+    void teamValidationPrint(TEAM& team, vector<TEAM> teamList);
     void enterTeacherData(vector<TEAM> teams, int teacherNumberCount);
-
     void printTeacherData();
 };
 

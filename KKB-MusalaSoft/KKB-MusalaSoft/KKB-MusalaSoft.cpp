@@ -16,6 +16,24 @@ using namespace std;
 
 string schoolDirectory;
 
+void insertTeacher(TEACHER teacher, fstream& file, string id)
+{
+
+}
+void insertTeachersIntoFile(vector<TEACHER> teachers, fstream& file)
+{
+    string id;
+    int intId;
+    for (size_t i = 0; i < teachers.size(); i++)
+    {
+        getLastId(id, file);
+        intId = stringToInt(id);
+        intId++;
+        id = to_string(intId);
+        insertTeacher(teachers[i], file, id);
+    }
+}
+
 bool menu(fstream& studsFile, fstream& teachersFile, fstream& teamsFile,fstream& schoolFile) {
     cout << "......................................................." << endl;
     cout << ". 1. See all schools list                             ." << endl;
@@ -77,7 +95,7 @@ bool menu(fstream& studsFile, fstream& teachersFile, fstream& teamsFile,fstream&
         setSchoolDirectory(schoolDirectory);
         closeFiles(studsFile, teachersFile, teamsFile, schoolFile);
         openFiles(studsFile, teachersFile, teamsFile, schoolFile, schoolDirectory);
-        printInsertStudents(school.students, studsFile);
+        insertStudentsIntoFile(school.students, studsFile);
         studsFile.flush();
     }
     if (option == 4)
@@ -89,7 +107,7 @@ bool menu(fstream& studsFile, fstream& teachersFile, fstream& teamsFile,fstream&
 				enterable = readInt();
 			} while (enterable <= 0);
             vector<STUDENT> students = enterStudents(enterable);
-            printInsertStudents(students, studsFile);
+            insertStudentsIntoFile(students, studsFile);
             studsFile.flush();
         }
         else {
@@ -97,19 +115,19 @@ bool menu(fstream& studsFile, fstream& teachersFile, fstream& teamsFile,fstream&
         }
     }
     if (option == 5)
-    {
-        
+    {   
         if (!schoolDirectory.empty())
         {
             do{
                 cout << "How many teachers do you want to enter?"<<endl;
                 enterable = readInt();
             } while (enterable <= 0);
+            
             vector<STUDENT> students=getStudentsFromFile(studsFile);
             vector<TEAM> teams = getTeamsFromFile(teamsFile,students);
-
             vector<TEACHER> teachers = enterTeachers(enterable,teams);
-            
+            printTeachersData(teachers);
+            insertTeachersIntoFile(teachers, teachersFile);
         }
     }
 	if (option == 6) 
@@ -121,7 +139,7 @@ bool menu(fstream& studsFile, fstream& teachersFile, fstream& teamsFile,fstream&
 				enterable = readInt();
 			} while (enterable <= 0);
 			vector<STUDENT> students = getStudentsFromFile(studsFile);
-			vector<TEAM> teams = enterTeams(enterable,students);
+			vector<TEAM> teams = enterTeams(enterable,students);       
             insertTeamsIntoFile(teams, teamsFile);
             teamsFile.flush();
 		}
