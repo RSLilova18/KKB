@@ -153,6 +153,20 @@ bool menu(fstream& studsFile, fstream& teachersFile, fstream& teamsFile,fstream&
         cout << "No school is selected!" << endl;
         cout << endl;
     }
+   /* if (option == 14)
+    {
+        if (!schoolDirectory.empty())
+        {
+            cout << "Full list of students which are sorted by their grades: " << endl;
+            vector<STUDENT> students = getStudentsFromFile(studsFile);
+            sort(students.begin(), students.end(), cmpStudentsByGrades);
+            printStudentsData(students);
+            return true;
+        }
+        cout << endl;
+        cout << "No school is selected!" << endl;
+        cout << endl;
+    }*/
     if (option == 15)
     {
         if (!schoolDirectory.empty())

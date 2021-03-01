@@ -428,6 +428,24 @@ bool cmpStudentsAlphabetically(STUDENT first, STUDENT second)
     return firstName.size() < secondName.size();
 }
 
+
+//bool cmpStudentsByGrades(STUDENT first, STUDENT second)
+//{
+//    int firstGrade, secondGrade;
+//    firstGrade = first.grade;
+//    secondGrade = second.grade;
+//
+//    for (int i = 0; i < min(firstGrade,secondGrade); i++)
+//    {
+//        if (firstGrade == secondGrade)
+//        {
+//            continue;
+//        }
+//        return firstGrade < secondGrade;
+//    }
+//    return firstGrade < secondGrade;
+//}
+
 void insertTeacher(TEACHER teacher, fstream& file, string id)
 {
     string line;
