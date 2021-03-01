@@ -249,8 +249,6 @@ vector<STUDENT> getStudentsFromFile(fstream& studentsList) {
     studentsList.clear();
     studentsList.seekg(ios_base::beg);
     studentsList.seekp(ios_base::beg);
-    print_state(studentsList);
-    cout << studentsList.eof() << endl;
     vector<STUDENT> students;
     string line, token;
     size_t comaIndex = 0;
@@ -428,4 +426,31 @@ bool cmpStudentsAlphabetically(STUDENT first, STUDENT second)
         return firstName[i] < secondName[i];
     }
     return firstName.size() < secondName.size();
+}
+
+void insertTeacher(TEACHER teacher, fstream& file, string id)
+{
+    string line;
+    line += '\n' + teacher.name + "," + teacher.surrname + "," + teacher.mail + ",";
+    for (size_t i = 0; i < teacher.teamsMentored.size(); i++)
+    {
+        line += to_string(teacher.teamsMentored[i].id) + ";";
+    }
+    file.seekp(-1, ios_base::end);
+    file << ",";
+    file << line;
+    file.seekp(ios_base::beg);
+}
+void insertTeachersIntoFile(vector<TEACHER> teachers, fstream& file)
+{
+    string id;
+    int intId;
+    for (size_t i = 0; i < teachers.size(); i++)
+    {
+        getLastId(id, file);
+        intId = stringToInt(id);
+        intId++;
+        id = to_string(intId);
+        insertTeacher(teachers[i], file, id);
+    }
 }

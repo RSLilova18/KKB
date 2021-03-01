@@ -16,33 +16,6 @@ using namespace std;
 
 string schoolDirectory;
 
-void insertTeacher(TEACHER teacher, fstream& file, string id)
-{
-    string line;
-    line += '\n' + teacher.name + "," + teacher.surrname + "," + teacher.mail + ",";
-    for (size_t i = 0; i < teacher.teamsMentored.size(); i++)
-    {
-        line += to_string(teacher.teamsMentored[i].id) +";";
-    }
-    file.seekp(-1, ios_base::end);
-    file << ",";
-    file << line;
-    file.seekp(ios_base::beg);
-}
-void insertTeachersIntoFile(vector<TEACHER> teachers, fstream& file)
-{
-    string id;
-    int intId;
-    for (size_t i = 0; i < teachers.size(); i++)
-    {
-        getLastId(id, file);
-        intId = stringToInt(id);
-        intId++;
-        id = to_string(intId);
-        insertTeacher(teachers[i], file, id);
-    }
-}
-
 bool menu(fstream& studsFile, fstream& teachersFile, fstream& teamsFile,fstream& schoolFile) {
     cout << "......................................................." << endl;
     cout << ". 1. See all schools list                             ." << endl;
@@ -168,6 +141,18 @@ bool menu(fstream& studsFile, fstream& teachersFile, fstream& teamsFile,fstream&
         cout << "No school is selected!" << endl;
         cout << endl;
     }
+    if (option == 12)
+    {
+        if (!schoolDirectory.empty()) {
+            cout << "Full list of the teams: ";
+            vector<STUDENT> students = getStudentsFromFile(studsFile);
+            vector<TEAM> teams = getTeamsFromFile(teamsFile,students);
+            printTeamsData(teams);
+        }
+        cout << endl;
+        cout << "No school is selected!" << endl;
+        cout << endl;
+    }
     if (option == 15)
     {
         if (!schoolDirectory.empty())
@@ -190,7 +175,6 @@ bool menu(fstream& studsFile, fstream& teachersFile, fstream& teamsFile,fstream&
     
     return true;
 }
-//dir /B | findstr /v /i "template" |findstr /v /i "BACKUP"
 
 int main()
 {
