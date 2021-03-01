@@ -323,8 +323,6 @@ vector<TEAM> getTeamsFromFile(fstream& teamsList, vector<STUDENT> students)
         if (token == "0") continue;
         team.id = stringToInt(token);
         line = line.substr(comaIndex + 1, line.size() - comaIndex - 1);
-
-
         do {
 
             comaIndex = line.find(',');

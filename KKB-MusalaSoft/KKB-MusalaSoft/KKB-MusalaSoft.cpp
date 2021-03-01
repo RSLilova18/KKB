@@ -18,7 +18,16 @@ string schoolDirectory;
 
 void insertTeacher(TEACHER teacher, fstream& file, string id)
 {
-
+    string line;
+    line += '\n' + teacher.name + "," + teacher.surrname + "," + teacher.mail + ",";
+    for (size_t i = 0; i < teacher.teamsMentored.size(); i++)
+    {
+        line += to_string(teacher.teamsMentored[i].id) +";";
+    }
+    file.seekp(-1, ios_base::end);
+    file << ",";
+    file << line;
+    file.seekp(ios_base::beg);
 }
 void insertTeachersIntoFile(vector<TEACHER> teachers, fstream& file)
 {
