@@ -100,14 +100,25 @@ SCHOOL enterSchoolData()
     cout << "Enter the number of students in " << school.city << ": ";
     cin >> numberOfStudents;
     school.students = enterStudents(numberOfStudents);
+    for (size_t i = 0; i < school.students.size(); i++)
+    {
+        school.students[i].id = i + 1;
+    }
     cout << endl;
     cout << "Enter the number of the teams in the school: ";
     cin >> numberOfTeams;
     school.teams = enterTeams(numberOfTeams, school.students);
+    for (size_t i = 0; i < school.teams.size(); i++)
+    {
+        school.teams[i].id = i + 1;
+    }
     cout << "Enter the number of teachers in the school: ";
     cin >> numberOfTeachers;
     school.teachers = enterTeachers(numberOfTeachers, school.teams);
-
+    for (size_t i = 0; i < school.teachers.size(); i++)
+    {
+        school.teachers[i].id = i + 1;
+    }
     return school;
 }
 

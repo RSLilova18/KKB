@@ -27,7 +27,7 @@ vector<TEACHER> getTeachersFromFile(fstream& file,vector<TEAM> teams) {
     file.seekp(ios_base::beg);
     file.seekg(ios_base::beg);
     vector<TEACHER> teachers;
-    string line, token;
+    string line, token,tokenId;
     size_t comaIndex = 0;
     TEACHER_FIELD_ORDER order;
     int intToken;
@@ -56,12 +56,12 @@ vector<TEACHER> getTeachersFromFile(fstream& file,vector<TEAM> teams) {
             }
             if (order == TEACHER_FIELD_ORDER::MENTORED_TEAMS_IDS) {
                 do {
-                    comaIndex = line.find(';');
-                    token = line.substr(0, comaIndex);
-                    line = line.substr(comaIndex + 1, line.size() - comaIndex - 1);
-                    intToken = stringToInt(token);
+                    comaIndex = token.find(';');
+                    tokenId = token.substr(0, comaIndex);
+                    token = token.substr(comaIndex + 1, token.size() - comaIndex - 1);
+                    intToken = stringToInt(tokenId);
                     teacher.teamsMentored.push_back(getIdfromTeacherFile(intToken,teams));
-                } while (line.find(';') != string::npos);
+                } while (token.find(';') != string::npos);
             }
             i++;
         } while (line.find(',') != string::npos);
@@ -130,11 +130,14 @@ bool menu(fstream& studsFile, fstream& teachersFile, fstream& teamsFile,fstream&
     {
         SCHOOL school = enterSchoolData();
         schoolDirectory = school.name + " " + school.city;
+
         createSchoolFolder(schoolDirectory);
         setSchoolDirectory(schoolDirectory);
         closeFiles(studsFile, teachersFile, teamsFile, schoolFile);
         openFiles(studsFile, teachersFile, teamsFile, schoolFile, schoolDirectory);
         insertStudentsIntoFile(school.students, studsFile);
+        insertTeamsIntoFile(school.teams, teamsFile);
+        insertTeachersIntoFile(school.teachers, teachersFile);
         studsFile.flush();
     }
     if (option == 4)
@@ -205,6 +208,7 @@ bool menu(fstream& studsFile, fstream& teachersFile, fstream& teamsFile,fstream&
             vector<STUDENT> students = getStudentsFromFile(studsFile);
             vector<TEAM> teams = getTeamsFromFile(teamsFile,students);
             printTeamsData(teams);
+            return true;
         }
         cout << endl;
         cout << "No school is selected!" << endl;
@@ -213,11 +217,10 @@ bool menu(fstream& studsFile, fstream& teachersFile, fstream& teamsFile,fstream&
     if (option == 13)
     {
         if (!schoolDirectory.empty()) {
-            cout << "Full list of teachers: ";
+            cout << "Full list of teachers: " << endl;
             vector<STUDENT> students = getStudentsFromFile(studsFile);
             vector<TEAM> teams = getTeamsFromFile(teamsFile,students);
             vector<TEACHER> teachers = getTeachersFromFile(teachersFile,teams);
-            cout << teachers.size();
             printTeachersData(teachers);
             return true;
         }
