@@ -15,6 +15,63 @@
 using namespace std;
 
 string schoolDirectory;
+enum  TEACHER_FIELD_ORDER {
+    TEACHERNAME,
+    TEACHERSURNAME,
+    TEACHERMAIL,
+    MENTORED_TEAMS_IDS
+};
+
+vector<TEACHER> getTeachersFromFile(fstream& file,vector<TEAM> teams) {
+    file.clear();
+    file.seekp(ios_base::beg);
+    file.seekg(ios_base::beg);
+    vector<TEACHER> teachers;
+    string line, token;
+    size_t comaIndex = 0;
+    TEACHER_FIELD_ORDER order;
+    int intToken;
+    size_t i = 0;
+    while (getline(file, line)) {
+        i = 0;
+        TEACHER teacher;
+        comaIndex = line.find(',');
+        token = line.substr(0, comaIndex);
+        if (token == "0") continue;
+        teacher.id = stringToInt(token);
+        line = line.substr(comaIndex + 1, line.size() - comaIndex - 1);
+        do {
+            comaIndex = line.find(',');
+            token = line.substr(0, comaIndex);
+            line = line.substr(comaIndex + 1, line.size() - comaIndex - 1);
+            order = (TEACHER_FIELD_ORDER)i;
+            if (order == TEACHER_FIELD_ORDER::TEACHERNAME) {
+                teacher.name = token;
+            }
+            if (order == TEACHER_FIELD_ORDER::TEACHERSURNAME) {
+                teacher.surrname = token;
+            }
+            if (order == TEACHER_FIELD_ORDER::TEACHERMAIL) {
+                teacher.mail = token;
+            }
+            if (order == TEACHER_FIELD_ORDER::MENTORED_TEAMS_IDS) {
+                do {
+                    comaIndex = line.find(';');
+                    token = line.substr(0, comaIndex);
+                    line = line.substr(comaIndex + 1, line.size() - comaIndex - 1);
+                    intToken = stringToInt(token);
+                    teacher.teamsMentored.push_back(getIdfromTeacherFile(intToken,teams));
+                } while (line.find(';') != string::npos);
+            }
+            i++;
+        } while (line.find(',') != string::npos);
+        teachers.push_back(teacher);
+    }
+    file.clear();
+    file.seekp(ios_base::beg);
+    file.seekg(ios_base::beg);
+    return teachers;
+}
 
 bool menu(fstream& studsFile, fstream& teachersFile, fstream& teamsFile,fstream& schoolFile) {
     cout << "......................................................." << endl;
@@ -148,6 +205,21 @@ bool menu(fstream& studsFile, fstream& teachersFile, fstream& teamsFile,fstream&
             vector<STUDENT> students = getStudentsFromFile(studsFile);
             vector<TEAM> teams = getTeamsFromFile(teamsFile,students);
             printTeamsData(teams);
+        }
+        cout << endl;
+        cout << "No school is selected!" << endl;
+        cout << endl;
+    }
+    if (option == 13)
+    {
+        if (!schoolDirectory.empty()) {
+            cout << "Full list of teachers: ";
+            vector<STUDENT> students = getStudentsFromFile(studsFile);
+            vector<TEAM> teams = getTeamsFromFile(teamsFile,students);
+            vector<TEACHER> teachers = getTeachersFromFile(teachersFile,teams);
+            cout << teachers.size();
+            printTeachersData(teachers);
+            return true;
         }
         cout << endl;
         cout << "No school is selected!" << endl;

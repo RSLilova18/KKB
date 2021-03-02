@@ -245,6 +245,17 @@ STUDENT getIDfromStudentFile(int intToken, vector<STUDENT> students)
     }
 }
 
+TEAM getIdfromTeacherFile(int intToken, vector<TEAM> teams) {
+    for (size_t i = 0; i < teams.size(); i++)
+    {
+        if (intToken == teams[i].id)
+        {
+            return teams[i];
+            break;
+        }
+    }
+}
+
 vector<STUDENT> getStudentsFromFile(fstream& studentsList) {
     studentsList.clear();
     studentsList.seekg(ios_base::beg);
@@ -267,27 +278,27 @@ vector<STUDENT> getStudentsFromFile(fstream& studentsList) {
             token = line.substr(0, comaIndex);
             line = line.substr(comaIndex + 1, line.size() - comaIndex - 1);
             order = (STUDENT_FIELD_ORDER)i;
-            if (order == NAME)
+            if (order == STUDENT_FIELD_ORDER::NAME)
             {
                 student.name = token;
             }
-            if (order == SURNAME)
+            if (order == STUDENT_FIELD_ORDER::SURNAME)
             {
                 student.surname = token;
             }
-            if (order == MAIL)
+            if (order == STUDENT_FIELD_ORDER::MAIL)
             {
                 student.mail = token;
             }
-            if (order == CLASS_NAME)
+            if (order == STUDENT_FIELD_ORDER::CLASS_NAME)
             {
                 student.nameClass = token;
             }
-            if (order == CLASS_STUDENT)
+            if (order == STUDENT_FIELD_ORDER::CLASS_STUDENT)
             {
                 student.classStudent = stringToInt(token);
             }
-            if (order == GRADE)
+            if (order == STUDENT_FIELD_ORDER::GRADE)
             {
                 student.grade = stof(token);
             }
@@ -327,38 +338,38 @@ vector<TEAM> getTeamsFromFile(fstream& teamsList, vector<STUDENT> students)
             token = line.substr(0, comaIndex);
             line = line.substr(comaIndex + 1, line.size() - comaIndex - 1);
             order = (TEAM_FIELD_ORDER)i;
-            if (order == TEAMNAME)
+            if (order == TEAM_FIELD_ORDER::TEAMNAME)
             {
                 team.name = token;
             }
-            if (order == DESCRIPTION)
+            if (order == TEAM_FIELD_ORDER::DESCRIPTION)
             {
                 team.description = token;
             }
-            if (order == TEAMDATE)
+            if (order == TEAM_FIELD_ORDER::TEAMDATE)
             {
                 team.date = token;
             }
-            if (order == STATUS)
+            if (order == TEAM_FIELD_ORDER::STATUS)
             {
                 team.status = token;
             }
-            if (order == BACKEND)
+            if (order == TEAM_FIELD_ORDER::BACKEND)
             {
                 intToken = stringToInt(token);
                 team.backEnd = getIDfromStudentFile(intToken, students);
             }
-            if (order == FRONTEND)
+            if (order == TEAM_FIELD_ORDER::FRONTEND)
             {
                  intToken = stringToInt(token);  
                  team.frontEnd=getIDfromStudentFile(intToken,students);
             }
-            if (order == SCRUM)
+            if (order == TEAM_FIELD_ORDER::SCRUM)
             {
                  intToken = stringToInt(token);
                  team.scrumMaster = getIDfromStudentFile(intToken, students);
             }
-            if (order == QA)
+            if (order == TEAM_FIELD_ORDER::QA)
             {
                 intToken = stringToInt(token);
                 team.qaEngineer = getIDfromStudentFile(intToken, students);
@@ -449,11 +460,12 @@ bool cmpStudentsAlphabetically(STUDENT first, STUDENT second)
 void insertTeacher(TEACHER teacher, fstream& file, string id)
 {
     string line;
-    line += '\n' + teacher.name + "," + teacher.surrname + "," + teacher.mail + ",";
+    line += '\n' +id+","+ teacher.name + "," + teacher.surrname + "," + teacher.mail + ",";
     for (size_t i = 0; i < teacher.teamsMentored.size(); i++)
     {
         line += to_string(teacher.teamsMentored[i].id) + ";";
     }
+    line += ",";
     file.seekp(-1, ios_base::end);
     file << ",";
     file << line;
