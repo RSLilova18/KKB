@@ -228,7 +228,7 @@ bool menu(fstream& studsFile, fstream& teachersFile, fstream& teamsFile,fstream&
         cout << "No school is selected!" << endl;
         cout << endl;
     }
-   /* if (option == 14)
+    if (option == 14)
     {
         if (!schoolDirectory.empty())
         {
@@ -241,7 +241,7 @@ bool menu(fstream& studsFile, fstream& teachersFile, fstream& teamsFile,fstream&
         cout << endl;
         cout << "No school is selected!" << endl;
         cout << endl;
-    }*/
+    }
     if (option == 15)
     {
         if (!schoolDirectory.empty())
