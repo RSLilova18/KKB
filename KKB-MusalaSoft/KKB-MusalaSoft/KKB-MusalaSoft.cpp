@@ -5,6 +5,8 @@
 #include <fstream>
 #include <string>
 #include <algorithm>
+#include <iterator>
+#include <time.h>
 #include "CustomDataTypes.h" 
 #include "CustomOperators.h"
 #include "DataLayerFunctions.h" 
@@ -15,64 +17,124 @@
 using namespace std;
 
 string schoolDirectory;
-enum  TEACHER_FIELD_ORDER {
-    TEACHERNAME,
-    TEACHERSURNAME,
-    TEACHERMAIL,
-    MENTORED_TEAMS_IDS
-};
-
-vector<TEACHER> getTeachersFromFile(fstream& file,vector<TEAM> teams) {
-    file.clear();
-    file.seekp(ios_base::beg);
-    file.seekg(ios_base::beg);
-    vector<TEACHER> teachers;
-    string line, token,tokenId;
-    size_t comaIndex = 0;
-    TEACHER_FIELD_ORDER order;
-    int intToken;
-    size_t i = 0;
-    while (getline(file, line)) {
-        i = 0;
-        TEACHER teacher;
-        comaIndex = line.find(',');
-        token = line.substr(0, comaIndex);
-        if (token == "0") continue;
-        teacher.id = stringToInt(token);
-        line = line.substr(comaIndex + 1, line.size() - comaIndex - 1);
-        do {
-            comaIndex = line.find(',');
-            token = line.substr(0, comaIndex);
-            line = line.substr(comaIndex + 1, line.size() - comaIndex - 1);
-            order = (TEACHER_FIELD_ORDER)i;
-            if (order == TEACHER_FIELD_ORDER::TEACHERNAME) {
-                teacher.name = token;
-            }
-            if (order == TEACHER_FIELD_ORDER::TEACHERSURNAME) {
-                teacher.surrname = token;
-            }
-            if (order == TEACHER_FIELD_ORDER::TEACHERMAIL) {
-                teacher.mail = token;
-            }
-            if (order == TEACHER_FIELD_ORDER::MENTORED_TEAMS_IDS) {
-                do {
-                    comaIndex = token.find(';');
-                    tokenId = token.substr(0, comaIndex);
-                    token = token.substr(comaIndex + 1, token.size() - comaIndex - 1);
-                    intToken = stringToInt(tokenId);
-                    teacher.teamsMentored.push_back(getIdfromTeacherFile(intToken,teams));
-                } while (token.find(';') != string::npos);
-            }
-            i++;
-        } while (line.find(',') != string::npos);
-        teachers.push_back(teacher);
+vector<STUDENT> getStudentsFromTeams(vector<TEAM> teams)
+{
+    vector<STUDENT> students;
+    for (size_t i = 0; i < teams.size(); i++)
+    {
+        students.push_back(teams[i].backEnd);
+        students.push_back(teams[i].qaEngineer);
+        students.push_back(teams[i].scrumMaster);
+        students.push_back(teams[i].frontEnd);
     }
-    file.clear();
-    file.seekp(ios_base::beg);
-    file.seekg(ios_base::beg);
-    return teachers;
+    sort(students.begin(), students.end(), cmpStudentsAlphabetically);
+    students.erase(unique(students.begin(), students.end()), students.end());
+    return students;
 }
-
+void deleteTakenStudents(vector<STUDENT>& studentsFromFile, vector<STUDENT>& studentsFromTeams) {
+    vector<STUDENT>::iterator it;
+    for (size_t i = 0; i < studentsFromFile.size();i++) {
+        for (size_t j = 0; j < studentsFromTeams.size();j++)
+        {
+            if (studentsFromFile[i] == studentsFromTeams[j])
+            {
+                it = studentsFromFile.begin();
+                advance(it, i);
+                i--;
+                studentsFromFile.erase(it);
+                break;
+            }
+        }
+    }
+}
+void distributeTeamMembers(TEAM& team, vector<STUDENT>& students) {
+    vector<STUDENT>::iterator it;
+    if (students.size() == 1)
+    {
+        team.backEnd = students[0];
+        team.frontEnd = students[0];
+        team.scrumMaster = students[0];
+        team.qaEngineer = students[0];
+        it = students.begin();
+        students.erase(it);
+        return;
+    }
+    it = students.begin();
+    advance(it, randomInt(0, students.size()));
+    team.backEnd = *it;
+    students.erase(it);
+    if (students.size() == 1)
+    {
+        team.frontEnd = students[0];
+        team.scrumMaster = students[0];
+        team.qaEngineer = students[0];
+        it = students.begin();
+        students.erase(it);
+        return;
+    }
+    it = students.begin();
+    advance(it, randomInt(0, students.size()));
+    team.frontEnd = *it;
+    students.erase(it);
+    if (students.size() == 1)
+    {
+        team.scrumMaster = students[0];
+        team.qaEngineer = students[0];
+        it = students.begin();
+        students.erase(it);
+        return;
+    }
+    it = students.begin();
+    advance(it, randomInt(0, students.size()));
+    team.scrumMaster = *it;
+    students.erase(it);
+    it = students.begin();
+    advance(it, randomInt(0, students.size()));
+    team.qaEngineer = *it;
+    students.erase(it);
+    
+}
+vector<TEAM> randomDistributeTeams(vector<TEAM> teamsFromFile,vector<STUDENT> studentsFromFile)
+{
+    int numberOfTeams;
+    vector<TEAM> teams;
+    TEAM team;
+    vector<STUDENT> studentsFromTeams;
+    studentsFromTeams = getStudentsFromTeams(teamsFromFile);
+    deleteTakenStudents(studentsFromFile,studentsFromTeams);
+    if (studentsFromFile.size() != 0)
+    {
+        cout << "How many teams do you want to enter: ";
+        cin >> numberOfTeams;
+        for (int i = 0; i < numberOfTeams; i++)
+        {
+            if (studentsFromFile.size() != 0)
+            {
+                cout << endl;
+                cout << i + 1 << ".Enter team name: ";
+                cin >> team.name;
+                cout << i + 1 << ".Enter team description: ";
+                cin.ignore();
+                getline(cin, team.description);
+                cout << i + 1 << ".Enter team creation date: ";
+                cin >> team.date;
+                distributeTeamMembers(team, studentsFromFile);
+                cout << "Automatic dirstribution for the roles..." << endl;
+                teams.push_back(team);
+            }
+            else {
+                cout << "No more free students! You created only "<< teams.size() <<" teams." << endl;
+                return teams;
+            }
+        }
+    }
+    else
+    {
+        cout << "There are no free students! No teams were created!" << endl;
+        return teams;
+    }
+    return teams;
+}
 bool menu(fstream& studsFile, fstream& teachersFile, fstream& teamsFile,fstream& schoolFile) {
     cout << "......................................................." << endl;
     cout << ". 1. See all schools list                             ." << endl;
@@ -204,7 +266,7 @@ bool menu(fstream& studsFile, fstream& teachersFile, fstream& teamsFile,fstream&
     if (option == 12)
     {
         if (!schoolDirectory.empty()) {
-            cout << "Full list of the teams: ";
+            cout << "Full list of the teams: " << endl;
             vector<STUDENT> students = getStudentsFromFile(studsFile);
             vector<TEAM> teams = getTeamsFromFile(teamsFile,students);
             printTeamsData(teams);
@@ -256,6 +318,15 @@ bool menu(fstream& studsFile, fstream& teachersFile, fstream& teamsFile,fstream&
         cout << "No school is selected!" << endl;
         cout << endl;
     }
+    if (option == 16) {
+        vector<STUDENT> students = getStudentsFromFile(studsFile);
+        vector<TEAM> teams = getTeamsFromFile(teamsFile,students);
+        vector<TEAM> randomTeams = randomDistributeTeams(teams,students);
+        if (randomTeams.size() != 0)
+        {
+            insertTeamsIntoFile(randomTeams,teamsFile);
+        }
+    }
     if (option == 17)
     {
         closeFiles(studsFile, teachersFile, teamsFile, schoolFile);
@@ -267,6 +338,7 @@ bool menu(fstream& studsFile, fstream& teachersFile, fstream& teamsFile,fstream&
 
 int main()
 {
+    srand(time(NULL));
     fstream studs, teachers, teams, school;
     while (menu(studs, teachers, teams, school));
  
