@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <iterator>
 #include <time.h>
+#include<sstream>
 #include "CustomDataTypes.h" 
 #include "CustomOperators.h"
 
@@ -529,4 +530,123 @@ vector<TEACHER> getTeachersFromFile(fstream& file, vector<TEAM> teams) {
     file.seekp(ios_base::beg);
     file.seekg(ios_base::beg);
     return teachers;
+}
+
+vector<STUDENT> getStudentsFromTeams(vector<TEAM> teams)
+{
+    vector<STUDENT> students;
+    for (size_t i = 0; i < teams.size(); i++)
+    {
+        students.push_back(teams[i].backEnd);
+        students.push_back(teams[i].qaEngineer);
+        students.push_back(teams[i].scrumMaster);
+        students.push_back(teams[i].frontEnd);
+    }
+    sort(students.begin(), students.end(), cmpStudentsAlphabetically);
+    students.erase(unique(students.begin(), students.end()), students.end());
+    return students;
+}
+void deleteTakenStudents(vector<STUDENT>& studentsFromFile, vector<STUDENT>& studentsFromTeams) {
+    vector<STUDENT>::iterator it;
+    for (size_t i = 0; i < studentsFromFile.size(); i++) {
+        for (size_t j = 0; j < studentsFromTeams.size(); j++)
+        {
+            if (studentsFromFile[i] == studentsFromTeams[j])
+            {
+                it = studentsFromFile.begin();
+                advance(it, i);
+                i--;
+                studentsFromFile.erase(it);
+                break;
+            }
+        }
+    }
+}
+void distributeTeamMembers(TEAM& team, vector<STUDENT>& students) {
+    vector<STUDENT>::iterator it;
+    if (students.size() == 1)
+    {
+        team.backEnd = students[0];
+        team.frontEnd = students[0];
+        team.scrumMaster = students[0];
+        team.qaEngineer = students[0];
+        it = students.begin();
+        students.erase(it);
+        return;
+    }
+    it = students.begin();
+    advance(it, randomInt(0, students.size()));
+    team.backEnd = *it;
+    students.erase(it);
+    if (students.size() == 1)
+    {
+        team.frontEnd = students[0];
+        team.scrumMaster = students[0];
+        team.qaEngineer = students[0];
+        it = students.begin();
+        students.erase(it);
+        return;
+    }
+    it = students.begin();
+    advance(it, randomInt(0, students.size()));
+    team.frontEnd = *it;
+    students.erase(it);
+    if (students.size() == 1)
+    {
+        team.scrumMaster = students[0];
+        team.qaEngineer = students[0];
+        it = students.begin();
+        students.erase(it);
+        return;
+    }
+    it = students.begin();
+    advance(it, randomInt(0, students.size()));
+    team.scrumMaster = *it;
+    students.erase(it);
+    it = students.begin();
+    advance(it, randomInt(0, students.size()));
+    team.qaEngineer = *it;
+    students.erase(it);
+
+}
+vector<TEAM> randomDistributeTeams(vector<TEAM> teamsFromFile, vector<STUDENT> studentsFromFile)
+{
+    int numberOfTeams;
+    vector<TEAM> teams;
+    TEAM team;
+    vector<STUDENT> studentsFromTeams;
+    studentsFromTeams = getStudentsFromTeams(teamsFromFile);
+    deleteTakenStudents(studentsFromFile, studentsFromTeams);
+    if (studentsFromFile.size() != 0)
+    {
+        cout << "How many teams do you want to enter: ";
+        cin >> numberOfTeams;
+        for (int i = 0; i < numberOfTeams; i++)
+        {
+            if (studentsFromFile.size() != 0)
+            {
+                cout << endl;
+                cout << i + 1 << ".Enter team name: ";
+                cin >> team.name;
+                cout << i + 1 << ".Enter team description: ";
+                cin.ignore();
+                getline(cin, team.description);
+                cout << i + 1 << ".Enter team creation date: ";
+                cin >> team.date;
+                distributeTeamMembers(team, studentsFromFile);
+                cout << "Automatic dirstribution for the roles..." << endl;
+                teams.push_back(team);
+            }
+            else {
+                cout << "No more free students! You created only " << teams.size() << " teams." << endl;
+                return teams;
+            }
+        }
+    }
+    else
+    {
+        cout << "There are no free students! No teams were created!" << endl;
+        return teams;
+    }
+    return teams;
 }
