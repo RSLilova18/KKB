@@ -147,5 +147,47 @@ void showAllSchoolNames() {
     system(c1);
 }
 
+vector<TEAM> randomDistributeTeams(vector<TEAM> teamsFromFile, vector<STUDENT> studentsFromFile)
+{
+    int numberOfTeams;
+    vector<TEAM> teams;
+    TEAM team;
+    vector<STUDENT> studentsFromTeams;
+    studentsFromTeams = getStudentsFromTeams(teamsFromFile);
+    deleteTakenStudents(studentsFromFile, studentsFromTeams);
+    if (studentsFromFile.size() != 0)
+    {
+        cout << "How many teams do you want to enter: ";
+        cin >> numberOfTeams;
+        for (int i = 0; i < numberOfTeams; i++)
+        {
+            if (studentsFromFile.size() != 0)
+            {
+                cout << endl;
+                cout << i + 1 << ".Enter team name: ";
+                cin >> team.name;
+                cout << i + 1 << ".Enter team description: ";
+                cin.ignore();
+                getline(cin, team.description);
+                cout << i + 1 << ".Enter team creation date: ";
+                cin >> team.date;
+                distributeTeamMembers(team, studentsFromFile);
+                cout << "Automatic dirstribution for the roles..." << endl;
+                teams.push_back(team);
+            }
+            else {
+                cout << "No more free students! You created only " << teams.size() << " teams." << endl;
+                return teams;
+            }
+        }
+    }
+    else
+    {
+        cout << "There are no free students! No teams were created!" << endl;
+        return teams;
+    }
+    return teams;
+}
+
 
 
