@@ -148,6 +148,7 @@
     <ClInclude Include="DisplayFunctions.h" />
     <ClInclude Include="FilterFunctions.h" />
     <ClInclude Include="FunctionsFromCustomDataTypes.h" />
+    <ClInclude Include="GlobalVariables.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

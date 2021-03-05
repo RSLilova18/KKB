@@ -13,10 +13,9 @@
 #include "DisplayFunctions.h" 
 #include "FilterFunctions.h"
 #include "FunctionsFromCustomDataTypes.h"
+#include "GlobalVariables.h"
 
 using namespace std;
-
-string schoolDirectory;
 
 bool menu(fstream& studsFile, fstream& teachersFile, fstream& teamsFile,fstream& schoolFile) {
     cout << "......................................................." << endl;
@@ -134,6 +133,18 @@ bool menu(fstream& studsFile, fstream& teachersFile, fstream& teamsFile,fstream&
 			cout << "No school is selected. Select a school from the list or enter a new school!" << endl;
 		}
 	}
+    if (option == 7)
+    {
+        deleteStudentFromFile(studsFile);
+    }
+    if (option == 8)
+    {
+
+    }
+    if (option == 9)
+    {
+
+    }
     if (option == 11)
     {
         if (!schoolDirectory.empty()) {
@@ -221,9 +232,10 @@ bool menu(fstream& studsFile, fstream& teachersFile, fstream& teamsFile,fstream&
 
 int main()
 {
+    blankStudent.mail = "emptyStudent-`*_";
     srand(time(NULL));
     fstream studs, teachers, teams, school;
     while (menu(studs, teachers, teams, school));
- 
+   
 }
 

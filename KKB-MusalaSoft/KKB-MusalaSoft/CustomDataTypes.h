@@ -19,7 +19,7 @@ struct STUDENT
     int classStudent;
     float grade;
 
-    void enterData(int counterStudent );
+    void enterData(int counterStudent);
     void printStudent();
 };
 

@@ -33,6 +33,7 @@ void STUDENT::printStudent() {
     cout << endl;
     cout << "--------------------------------------------------------------------------------";
     cout << endl;
+    cout << "Id: " << id << endl;
     cout << "--" << name << " " << surname << " " << classStudent << " " << nameClass;
     cout << endl;
     cout << "--" << "Grade and email: " << " " << grade << " - " << mail;
@@ -92,6 +93,7 @@ void TEAM::printTeam()
 {
     cout << "--------------------------------------------------------------------------------";
     cout << endl;
+    cout << "Id: " << id << endl;
     cout << name;
     cout << endl;
     cout << description;
@@ -147,6 +149,7 @@ void TEACHER::enterTeacherData(vector<TEAM> teams, int teacherNumberCount =1) {
 void TEACHER::printTeacherData() {
     cout << "--------------------------------------------------------------------------------";
     cout << endl;
+    cout << "Id: " << id << endl;
     cout << name << " " << surrname;
     cout << endl;
     cout << "Email: " << mail;

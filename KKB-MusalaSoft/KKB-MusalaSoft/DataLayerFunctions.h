@@ -11,6 +11,7 @@
 #include<sstream>
 #include "CustomDataTypes.h" 
 #include "CustomOperators.h"
+#include "GlobalVariables.h"
 
 using namespace std;
 
@@ -68,7 +69,6 @@ vector<STUDENT> enterStudents(int numberOfStudents) {
         student.enterData(i + 1);
         while (checkStudentsData(student) == false)
         {
-
             cout << "Invalid grade!" << endl;
             student.enterData(i + 1);
         }
@@ -607,5 +607,75 @@ void distributeTeamMembers(TEAM& team, vector<STUDENT>& students) {
     advance(it, randomInt(0, students.size()));
     team.qaEngineer = *it;
     students.erase(it);
+}
 
+bool writeTempFile(fstream& prevFile, fstream& newFile, int id) {
+    bool findId = false;
+    string line, token;
+    int comaIndex;
+    prevFile.seekg(ios_base::beg);
+    prevFile.seekp(ios_base::beg);
+    prevFile.clear();
+    while (getline(prevFile, line)) {
+        comaIndex = line.find(',');
+        token = line.substr(0, comaIndex);
+        if (id == stringToInt(token))
+        {
+            findId = true;
+            continue;
+        }
+        if (token == "0")
+        {
+            newFile << line;
+            continue;
+        }
+        newFile << endl << line;
+    }
+    prevFile.seekg(ios_base::beg);
+    prevFile.seekp(ios_base::beg);
+    prevFile.clear();
+    return findId;
+}
+void deleteStudentFromFile(fstream& studsFile) {
+    int id, comaIndex;
+    string line, token;
+    string oldNameStr, newNameStr, removeFileStr;
+    char* oldName, * newName, * removeFile;
+    fstream newStudsFile(schoolDirectory + "/NewStudentFile.csv", ios::out);
+    bool findId = false;
+    if (newStudsFile.is_open())
+    {
+        cout << "Enter the id of the student you want to delete: ";
+        cin >> id;
+        findId = writeTempFile(studsFile, newStudsFile, id);
+        newStudsFile.close();
+        if (!findId) {
+            cout << "Couldn't find the student with that id!" << endl;
+            removeFileStr = schoolDirectory + "/NewStudentFile.csv";
+            removeFile = &removeFileStr[0];
+            remove(removeFile);
+            return;
+        }
+        studsFile.close();
+        oldNameStr = schoolDirectory + "/NewStudentFile.csv";
+        newNameStr = schoolDirectory + "/StudentFile.csv";
+        removeFileStr = schoolDirectory + "/StudentFile.csv";
+        oldName = &oldNameStr[0];
+        newName = &newNameStr[0];
+        removeFile = &removeFileStr[0];
+        if (remove(removeFile) == 0)
+            puts("");
+        else
+            perror("Unable to delete the file");
+
+        if (rename(oldName, newName) == 0)
+            puts("");
+        else
+            perror("Error renaming file");
+        studsFile.open(schoolDirectory + "/StudentFile.csv");
+        cout << "Student deleted successfully!" << endl;
+    }
+    else {
+        cout << "The file did not open!" << endl;
+    }
 }
