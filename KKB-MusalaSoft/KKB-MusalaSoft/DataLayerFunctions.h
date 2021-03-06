@@ -251,6 +251,7 @@ STUDENT getIDfromStudentFile(int intToken, vector<STUDENT> students)
             break;
         }
     }
+    return blankStudent;
 }
 
 TEAM getIdfromTeacherFile(int intToken, vector<TEAM> teams) {
@@ -262,6 +263,7 @@ TEAM getIdfromTeacherFile(int intToken, vector<TEAM> teams) {
             break;
         }
     }
+    return blankTeam;
 }
 
 vector<STUDENT> getStudentsFromFile(fstream& studentsList) {
@@ -358,10 +360,6 @@ vector<TEAM> getTeamsFromFile(fstream& teamsList, vector<STUDENT> students)
             {
                 team.date = token;
             }
-            if (order == TEAM_FIELD_ORDER::STATUS)
-            {
-                team.status = token;
-            }
             if (order == TEAM_FIELD_ORDER::BACKEND)
             {
                 intToken = stringToInt(token);
@@ -381,6 +379,10 @@ vector<TEAM> getTeamsFromFile(fstream& teamsList, vector<STUDENT> students)
             {
                 intToken = stringToInt(token);
                 team.qaEngineer = getIDfromStudentFile(intToken, students);
+            }
+            if (order == TEAM_FIELD_ORDER::STATUS)
+            {
+                team.status = token;
             }
             i++;
         } while (line.find(',') != string::npos);
@@ -402,7 +404,7 @@ void insertTeam(TEAM team, fstream& file, string id) {
     string line;
     line = '\n' + id + "," + team.name + "," + team.description + "," + team.date + "," + team.status + ",";
     line += to_string(team.backEnd.id) + "," + to_string(team.frontEnd.id) + "," + to_string(team.scrumMaster.id);
-    line += "," + to_string(team.qaEngineer.id) + ",";
+    line += "," + to_string(team.qaEngineer.id) + ",in use,";
     file.seekp(-1, ios_base::end);
     file << ",";
     file << line;
@@ -636,30 +638,31 @@ bool writeTempFile(fstream& prevFile, fstream& newFile, int id) {
     prevFile.clear();
     return findId;
 }
-void deleteStudentFromFile(fstream& studsFile) {
+
+void deleteFromFile(fstream& file,string fileName) {
     int id, comaIndex;
     string line, token;
     string oldNameStr, newNameStr, removeFileStr;
     char* oldName, * newName, * removeFile;
-    fstream newStudsFile(schoolDirectory + "/NewStudentFile.csv", ios::out);
+    fstream newStudsFile(schoolDirectory + "/NewFile.csv", ios::out);
     bool findId = false;
     if (newStudsFile.is_open())
     {
         cout << "Enter the id of the student you want to delete: ";
         cin >> id;
-        findId = writeTempFile(studsFile, newStudsFile, id);
+        findId = writeTempFile(file, newStudsFile, id);
         newStudsFile.close();
         if (!findId) {
             cout << "Couldn't find the student with that id!" << endl;
-            removeFileStr = schoolDirectory + "/NewStudentFile.csv";
+            removeFileStr = schoolDirectory + "/NewFile.csv";
             removeFile = &removeFileStr[0];
             remove(removeFile);
             return;
         }
-        studsFile.close();
-        oldNameStr = schoolDirectory + "/NewStudentFile.csv";
-        newNameStr = schoolDirectory + "/StudentFile.csv";
-        removeFileStr = schoolDirectory + "/StudentFile.csv";
+        file.close();
+        oldNameStr = schoolDirectory + "/NewFile.csv";
+        newNameStr = schoolDirectory + fileName;
+        removeFileStr = schoolDirectory + fileName;
         oldName = &oldNameStr[0];
         newName = &newNameStr[0];
         removeFile = &removeFileStr[0];
@@ -672,8 +675,8 @@ void deleteStudentFromFile(fstream& studsFile) {
             puts("");
         else
             perror("Error renaming file");
-        studsFile.open(schoolDirectory + "/StudentFile.csv");
-        cout << "Student deleted successfully!" << endl;
+        file.open(schoolDirectory + fileName);
+        cout << "Deleted successfully!" << endl;
     }
     else {
         cout << "The file did not open!" << endl;

@@ -6,3 +6,4 @@
 using namespace std;
 string schoolDirectory;
 STUDENT blankStudent;
+TEAM blankTeam;

@@ -10,6 +10,7 @@
 #include <time.h>
 #include "CustomDataTypes.h" 
 #include "DisplayFunctions.h"
+#include "GlobalVariables.h"
 
 using namespace std;
 
@@ -30,6 +31,16 @@ void STUDENT::enterData(int counterStudent=1) {
 }
 
 void STUDENT::printStudent() {
+    if (*this == blankStudent) {
+        cout << endl;
+        cout << "--------------------------------------------------------------------------------";
+        cout << endl;
+        cout << "No student in that position!";
+        cout << endl;
+        cout << "--------------------------------------------------------------------------------";
+        cout << endl;
+        return;
+    }
     cout << endl;
     cout << "--------------------------------------------------------------------------------";
     cout << endl;
@@ -91,6 +102,9 @@ void TEAM::studentValidationPrint(STUDENT& student, vector<STUDENT> studentsList
 
 void TEAM::printTeam()
 {
+    if (*this == blankTeam) {
+        return;
+    }
     cout << "--------------------------------------------------------------------------------";
     cout << endl;
     cout << "Id: " << id << endl;

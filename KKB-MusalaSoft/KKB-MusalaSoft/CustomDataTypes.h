@@ -71,11 +71,11 @@ enum TEAM_FIELD_ORDER
     TEAMNAME,
     DESCRIPTION,
     TEAMDATE,
-    STATUS,
     BACKEND,
     FRONTEND,
     SCRUM,
-    QA
+    QA,
+    STATUS
 };
 
 enum  TEACHER_FIELD_ORDER {

@@ -13,6 +13,7 @@
 #include "DataLayerFunctions.h" 
 #include "FilterFunctions.h"
 #include "FunctionsFromCustomDataTypes.h"
+#include "GlobalVariables.h"
 
 using namespace std;
 
