@@ -1,0 +1,100 @@
+<DOCTYPE html>
+    <html>
+    <head>
+         <script>
+   function fun(){ 
+            document.getElementById('name').value=''; 
+            document.getElementById('email').value=''; 
+            document.getElementById('userMessage').value=''; 
+            } 
+</script>
+        <link rel="stylesheet" href="TeachersStyle.css">
+    <title>Upload your files</title>
+        </head>
+
+<div class="background">
+
+            <div class="sec0" id="section0">
+                <header>
+                  <div class="img2">
+                
+                 </div> 
+                 <nav>
+                    <ul>
+                        <li><a href="Home Page.html">Home</a></li>
+                        <li><a href="#">Video</a></li>
+                        <li><a href="Download.html">Download</a></li>
+                        <li><a href="About us.html">About us</a></li>
+                        <li><a href="#">Contact us</a></li>
+                        
+                    </ul>
+                    </nav>
+                    <h1> <a href="Home Page.html"><img src="logo.png"  style="width:159px;height:150px;"></a></h1>
+                  
+                    </header>
+            </div>
+
+
+    <body>
+                  
+    
+      
+        <form action="https://getform.io/f/431624c8-2f39-44b0-8aa4-cb26d7c6c815" 
+        method="POST" enctype="multipart/form-data">
+       <br><br><br><br><br><br>
+        <div class="content">
+            <div class="btn">
+                <div class="border">
+                <label onclick="active()" id="custom-btn"><h7>Choose a File</h7></label>
+                </div>
+             </div>
+            </div>
+            <div class="container">
+                <h1>Upload your table</h1>
+             <input type="text" placeholder="School Name/City" name="text" id="schoolName">
+            <div class="btn">
+             
+            </div>
+           
+            <input id="default-btn" name="file" type="file" hidden>
+            <button type="submit" onclick="fun()">Send</button>
+      
+       
+        <div class="file-name"></div>
+    </div>
+    
+
+</form>
+
+
+
+
+    
+    <script>
+        const defaultBtn=document.querySelector("#default-btn");
+        const customBtn=document.querySelector("#custom-btn");
+        const fileName=document.querySelector(".file-name");
+        let regExp=/[0-9a-zA-Z\^\&\'\@\{\}\[\]\,\$\=\!\-\#\(\)\.\%\+\~\_]+$/;
+   function active()
+   {
+       defaultBtn.click();
+   }
+   defaultBtn.addEventListener("change", function(){
+   if(this.value)
+   {
+       let nameValue=this.value.match(regExp);
+       fileName.style.display="block";
+       fileName.textContent=nameValue;
+   }
+   else
+   {
+    fileName.style.display="block";
+    fileName.textContent="No file chosen";
+   }
+
+   });
+   </script>
+
+</body>
+</div>
+    </html>
