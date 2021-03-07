@@ -46,7 +46,7 @@ Georgi N. Georgiev - 10**A**  ->  Quality Engineer
 -   <img src="https://user-images.githubusercontent.com/56883533/107851048-892e2680-6e0f-11eb-9d9c-3d5e36b1fcf4.png" width="15px" height="15px"> HTML
 -   <img src="https://user-images.githubusercontent.com/56883533/107851050-8b908080-6e0f-11eb-918d-bc249e8c40a5.png" width="15px" height="15px"> CSS
 -   <img src="https://user-images.githubusercontent.com/56883533/107851052-8df2da80-6e0f-11eb-8a92-f6b1d4405959.png" width="15px" height="15px"> JavaScript
--   <img src="https://user-images.githubusercontent.com/56883533/107851053-90edcb00-6e0f-11eb-973f-f87555cc9558.png" width="19px" height="16px"> PHP
+
  
 
 [Back To The Top](#team-kkb)
