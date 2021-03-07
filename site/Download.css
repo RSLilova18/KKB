@@ -21,7 +21,10 @@ header{
   height:70px;
 
 }
-
+a:hover img{
+	transform: scale(1.02); 
+	
+}
 .sec0 h1
 {
   position: absolute;

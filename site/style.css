@@ -1,6 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:500');
 
-
+a:hover img{
+	transform: scale(1.02); 
+	
+}
 .Slogan{
 	font-size: 40px;
 	font-family: 'Noto Sans JP', sans-serif;
