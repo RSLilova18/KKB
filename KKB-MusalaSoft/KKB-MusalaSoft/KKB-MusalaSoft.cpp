@@ -31,17 +31,21 @@ void changeTeamStatus(fstream& file, int id,string status) {
         tempLine = line;
         commaIndex = tempLine.find(',');
         token = line.substr(0, commaIndex);
+        line = line.substr(commaIndex + 1, line.size() - commaIndex - 1);
         if (stringToInt(token) == id)
         {
             i = 0;
-            line = line.substr(commaIndex + 1, line.size() - commaIndex - 1);
             do
             {
                 commaIndex = line.find(',');
                 token = line.substr(0, commaIndex);
                 line = line.substr(commaIndex + 1, line.size() - commaIndex - 1);
+                cout << token << endl;
                 i++;
             } while ((TEAM_FIELD_ORDER)i != TEAM_FIELD_ORDER::STATUS);
+            commaIndex = line.find(',');
+            token = line.substr(0, commaIndex);
+            line = line.substr(commaIndex + 1, line.size() - commaIndex - 1);
             cout << token << endl;
             commaIndex = tempLine.find(token);
             tempLine = tempLine.substr(0, commaIndex);
@@ -255,6 +259,7 @@ bool menu(fstream& studsFile, fstream& teachersFile, fstream& teamsFile,fstream&
         if (!schoolDirectory.empty())
         {
             changeTeamStatusMenu(teamsFile);
+            return true;
         }
         cout << endl;
         cout << "No school is selected!" << endl;

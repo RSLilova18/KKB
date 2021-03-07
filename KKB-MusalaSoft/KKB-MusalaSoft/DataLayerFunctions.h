@@ -402,7 +402,7 @@ bool verifySelectedSchool(string school) {
 
 void insertTeam(TEAM team, fstream& file, string id) {
     string line;
-    line = '\n' + id + "," + team.name + "," + team.description + "," + team.date + "," + team.status + ",";
+    line = '\n' + id + "," + team.name + "," + team.description + "," + team.date + ",";
     line += to_string(team.backEnd.id) + "," + to_string(team.frontEnd.id) + "," + to_string(team.scrumMaster.id);
     line += "," + to_string(team.qaEngineer.id) + ",in use,";
     file.seekp(-1, ios_base::end);
