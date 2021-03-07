@@ -57,7 +57,8 @@ bool checkIfTeamExist(TEAM& team, vector<TEAM> teams)
 
 bool checkStudentsData(STUDENT data, int counterStudent = 1)
 {
-    return !(data.grade > 6 or data.grade < 2);
+    return !(data.grade > 6);
+    return !(data.grade < 2);
 }
 
 
