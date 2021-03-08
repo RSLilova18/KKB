@@ -13,15 +13,15 @@
 
 ## Description
 
-School project about a program which represents a school where the students are grouped in teams in order to work on projects with a teacher in each team.
 
+School project which represents a site where you can find the software you need to group students and their teachers in school.
 
 
 [Back To The Top](#team-kkb)
 
 ---
 
-## About us
+## About us<img align="left" width="40" height="40" src="https://user-images.githubusercontent.com/56883533/110394059-70163f80-8074-11eb-97c2-18d7c168f05f.png" >
 
 Raya Lilova - 10**B**  ->  Scrum Trainer  
 Valentin Petrov - 10**G**  ->  Frontend Developer  
