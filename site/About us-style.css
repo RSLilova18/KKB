@@ -108,28 +108,7 @@ h1
 	line-height:0.8cm;
 }
 
-/* 
-.img3 {
-	transition: filter .5s ease-in-out;
-	-webkit-filter: grayscale(100%); 
-	filter: grayscale(100%); 
-	
-	
-  }
-  
-  .img3:hover {
-	
-	-webkit-filter: grayscale(0%); 
-	filter: grayscale(0%); 
-  } 
 
-
-  .img3 { 
-	width: 259px; 
-	height: 350px; 
-	overflow: hidden; 
-	/* margin: 0 auto; this is why is in the middle 
-}  */
 .row::after {
 	content: "";
 	clear: both;
@@ -137,14 +116,7 @@ h1
 	
 	
   }
-/* .img3 img { 
-	width: 100%; 
-	transition: 0.5s all ease-in-out; 
-} 
 
-.img3:hover img { 
-	transform: scale(1.1); 
-}  */
 .center
 {
 	margin-left:60px;
@@ -244,10 +216,3 @@ h10
 }
 
 
-.BojidarParagraph h11
-{
-	font-size:15px;
-	color:rgb(83, 83, 83);
-	margin-left:360px;
-	font-family: 'Open Sans', sans-serif;
-}

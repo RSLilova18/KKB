@@ -1,0 +1,262 @@
+a:hover img{
+	transform: scale(1.02); 
+	
+}
+#section0
+{
+    height: 160px;
+	-webkit-background-size: cover;
+	background-size: cover;
+	background-position: center center;
+	position: relative;
+  
+}
+ .sec0 img
+{
+	margin-left:29px;
+    margin-top:-2px;
+	size:10px;
+}
+
+
+
+
+header{
+  width:100%;
+  height:70px;
+  
+}
+
+
+
+
+ .sec0 ul
+{
+  width:auto;
+  float:right;
+  margin-top:8px;
+
+}
+
+ .sec0 li{
+  display:inline-block;
+  padding: 15px 30px;
+}
+
+
+ .sec0 a
+{
+  text-align: center;
+  color:#c0b8b8;
+  text-decoration: none;
+  font-family: 'Open Sans', sans-serif;
+  font-size:1.2vw;
+}
+
+ .sec0 a:hover{
+   color: #3d9ef2;
+   transition: 0.5s;
+}
+
+
+
+.container1{
+    
+    max-width: 400px;
+    height: 350px;
+    background:rgb(255, 216, 165);
+    margin: 50px auto;
+    box-shadow: 0 0 20px rgba(72,98,85, 0.6);
+    box-sizing: border-box;
+    padding: 40px;
+    border-radius: 10px;
+}
+
+.container2
+{
+    margin: 50px auto;
+    max-width: 400px;
+    height: 350px;
+    background:rgb(255, 216, 165);
+    box-shadow: 0 0 20px rgba(72,98,85, 0.6);
+    box-sizing: border-box;
+    padding: 40px;
+    border-radius: 10px;
+}
+
+.container3
+{
+    margin: 50px auto;
+    max-width: 400px;
+    height: 350px;
+    background:rgb(255, 216, 165);
+    box-shadow: 0 0 20px rgba(72,98,85, 0.6);
+    box-sizing: border-box;
+    padding: 40px;
+    border-radius: 10px;
+}
+
+.Row {
+    display: table;
+    width: 100%; /*Optional*/
+    table-layout: fixed; /*Optional*/
+    border-spacing: 10px; /*Optional*/
+}
+.Column {
+    display: table-cell;
+    
+}
+
+h2{
+    text-align: center;
+    font-size: 40px;
+    color:#3d9ef2;
+    font-family: 'Open Sans', sans-serif; 
+}
+.Row h1
+{
+    font-family: 'Open Sans', sans-serif; 
+    margin-top:-25px;
+    margin-left:-20px;
+}
+.Row h3
+{
+    font-family: 'Open Sans', sans-serif; 
+    font-size:30px;
+    text-align: center;
+}
+button{
+    margin-left:75px;
+    margin-top:40px;
+}
+body
+{
+    background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),url('StudBack3.jpg')no-repeat;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Download Button */
+
+.buttonDownload {
+	display: inline-block;
+	position: relative;
+	padding: 10px 25px;
+  
+	background-color: #0f82b8;
+	color: white;
+  
+	font-family: sans-serif;
+	text-decoration: none;
+	font-size: 1.2em;
+	text-align: center;
+	text-indent: 15px;
+    height: 50px;
+    width:170px;
+}
+
+.buttonDownload:hover {
+	background-color: #333;
+	color: white;
+  cursor: pointer;
+}
+
+.buttonDownload:before, .buttonDownload:after {
+	content: ' ';
+	display: block;
+	position: absolute;
+	left: 15px;
+	top: 52%;
+}
+
+/* Download box shape  */
+.buttonDownload:before {
+	width: 10px;
+	height: 2px;
+	border-style: solid;
+	border-width: 0 2px 2px;
+}
+
+/* Download arrow shape */
+.buttonDownload:after {
+	width: 0;
+	height: 0;
+	margin-left: 3px;
+	margin-top: -7px;
+    
+	border-style: solid;
+	border-width: 4px 4px 0 4px;
+	border-color: transparent;
+	border-top-color: inherit;
+	
+	animation: downloadArrow 2s linear infinite;
+	animation-play-state: paused;
+}
+
+.buttonDownload:hover:before {
+	border-color: #4CC713;
+}
+
+.buttonDownload:hover:after {
+	border-top-color: #4CC713;
+	animation-play-state: running;
+}
+
+/* keyframes for the download icon anim */
+@keyframes downloadArrow {
+	/* 0% and 0.001% keyframes used as a hackish way of having the button frozen on a nice looking frame by default */
+	0% {
+		margin-top: -7px;
+		opacity: 1;
+	}
+	
+	0.001% {
+		margin-top: -15px;
+		opacity: 0;
+	}
+	
+	50% {
+		opacity: 1;
+	}
+	
+	100% {
+		margin-top: 0;
+		opacity: 0;
+	}
+}
+
+

@@ -13,15 +13,15 @@
 
 ## Description
 
-School project about a program which represents a school where the students are grouped in teams in order to work on projects with a teacher in each team.
 
+School project which represents a site where you can find the software you need to group students and their teachers in school.
 
 
 [Back To The Top](#team-kkb)
 
 ---
 
-## About us
+## About us<img align="left" width="40" height="40" src="https://user-images.githubusercontent.com/56883533/110394059-70163f80-8074-11eb-97c2-18d7c168f05f.png" >
 
 Raya Lilova - 10**B**  ->  Scrum Trainer  
 Valentin Petrov - 10**G**  ->  Frontend Developer  
@@ -42,11 +42,10 @@ Georgi N. Georgiev - 10**A**  ->  Quality Engineer
 #### The program languages used for the project:
 
 -   <img src="https://user-images.githubusercontent.com/56883533/107850857-59caea00-6e0e-11eb-95b1-95a6346e986d.png" width="15px" height="15px"> C++
--   <img src="https://user-images.githubusercontent.com/56883533/107850934-d9f14f80-6e0e-11eb-856e-50b9c484fc97.png" width="15px" height="15px"> C
 -   <img src="https://user-images.githubusercontent.com/56883533/107851048-892e2680-6e0f-11eb-9d9c-3d5e36b1fcf4.png" width="15px" height="15px"> HTML
 -   <img src="https://user-images.githubusercontent.com/56883533/107851050-8b908080-6e0f-11eb-918d-bc249e8c40a5.png" width="15px" height="15px"> CSS
 -   <img src="https://user-images.githubusercontent.com/56883533/107851052-8df2da80-6e0f-11eb-8a92-f6b1d4405959.png" width="15px" height="15px"> JavaScript
--   <img src="https://user-images.githubusercontent.com/56883533/107851053-90edcb00-6e0f-11eb-973f-f87555cc9558.png" width="19px" height="16px"> PHP
+
  
 
 [Back To The Top](#team-kkb)
