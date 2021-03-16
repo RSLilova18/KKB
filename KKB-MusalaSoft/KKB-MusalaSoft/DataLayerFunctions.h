@@ -27,6 +27,7 @@ void print_state(const std::ios& stream) {
     std::cout << " bad()=" << stream.bad() << endl;
 }
 
+//browses through students vector and returns a student if is found
 bool checkIfStudentExist(STUDENT& student, vector<STUDENT> studentsList) {
     string role;
     role = student.role;
@@ -41,7 +42,7 @@ bool checkIfStudentExist(STUDENT& student, vector<STUDENT> studentsList) {
     }
     return false;
 }
-
+//browses through teams vector and returns a student if is found
 bool checkIfTeamExist(TEAM& team, vector<TEAM> teams)
 {
     for (size_t i = 0; i < teams.size(); i++)
@@ -60,7 +61,8 @@ bool checkStudentsData(STUDENT data, int counterStudent = 1)
     return !(data.grade > 6 or data.grade < 2);
 }
 
-
+//calls the enter data method for n times and returns a vector of students
+//used for multiple students entering
 vector<STUDENT> enterStudents(int numberOfStudents) {
     STUDENT student;
     vector<STUDENT> students;
@@ -77,7 +79,8 @@ vector<STUDENT> enterStudents(int numberOfStudents) {
     return students;
 }
 
-
+//calls the enter data method for n times and returns a vector of teams
+//used for multiple teams entering
 vector<TEAM> enterTeams(int numberOfTeams, vector<STUDENT> students) {
     TEAM team;
     vector<TEAM> teams;
@@ -89,6 +92,8 @@ vector<TEAM> enterTeams(int numberOfTeams, vector<STUDENT> students) {
     return teams;
 }
 
+//calls the enter data method for n times and returns a vector of teachers
+//used for multiple teachers entering
 vector<TEACHER> enterTeachers(int numberOfTeachers, vector<TEAM> teams) {
     TEACHER teacher;
     vector<TEACHER> teachers;
@@ -100,9 +105,8 @@ vector<TEACHER> enterTeachers(int numberOfTeachers, vector<TEAM> teams) {
     return teachers;
 }
 
-void openFiles(fstream& studs, fstream& teachers,fstream& teams,fstream& school, string path) {
-
-    
+//takes the path and opens the 4 files in the specific folder
+void openFiles(fstream& studs, fstream& teachers,fstream& teams,fstream& school, string path) {    
     studs.open(path+"/StudentFile.csv");
     teachers.open(path+ "/Teachers.csv");
     teams.open(path+"/Teams.csv");
@@ -130,24 +134,25 @@ void openFiles(fstream& studs, fstream& teachers,fstream& teams,fstream& school,
 }
 
 void closeFiles(fstream& studs, fstream& teachers, fstream& teams, fstream& school) {
-    if (!studs.is_open())
+    if (studs.is_open())
     {
         studs.close();
     }
-    if (!teachers.is_open())
+    if (teachers.is_open())
     {
         teachers.close();
     }
-    if (!teams.is_open())
+    if (teams.is_open())
     {
         teams.close();
     }
-    if (!school.is_open())
+    if (school.is_open())
     {
         school.close();
     }
 }
 
+//takes the a string name and creates a folder with the name
 void createSchoolFolder(string name) {
     char* c1;
     string  firstCommand, secondCommand;
@@ -161,6 +166,7 @@ void createSchoolFolder(string name) {
     system(c1);
 }
 
+//changes the schoolDirectory variable
 void setSchoolDirectory(string& schoolNameAndTown) {
     schoolNameAndTown = "../../CSVFiles/" + schoolNameAndTown;
 }
@@ -172,6 +178,7 @@ int stringToInt(string str) {
     return x;
 }
 
+//from a file gets the last used id
 bool getLastId(string& id, fstream& file) {
     string line;
     if (!file.is_open())
@@ -184,7 +191,6 @@ bool getLastId(string& id, fstream& file) {
         file.clear();
         file.seekg(ios::beg);
         file.seekp(ios::beg);
-        print_state(file);
         //Got to the last character before EOF
         file.seekg(-1, ios_base::end);                // go to one spot before the EOF
 
@@ -216,6 +222,7 @@ bool getLastId(string& id, fstream& file) {
     return false;
 }
 
+//writes a student data in the file
 void insertStdent(STUDENT student, fstream& file, string id) {
 
     string line;
@@ -227,6 +234,7 @@ void insertStdent(STUDENT student, fstream& file, string id) {
     file.seekp(ios_base::beg);
 }
 
+//calls insertStudent function n times to insert n students
 bool insertStudentsIntoFile(vector<STUDENT> students, fstream& file) {
     string id;
     int intId;
@@ -240,7 +248,7 @@ bool insertStudentsIntoFile(vector<STUDENT> students, fstream& file) {
         }
     return true;
 }
-
+//returns a student if found the same id
 STUDENT getIDfromStudentFile(int intToken, vector<STUDENT> students)
 {
     for (size_t i = 0; i < students.size(); i++)
@@ -253,7 +261,7 @@ STUDENT getIDfromStudentFile(int intToken, vector<STUDENT> students)
     }
     return blankStudent;
 }
-
+//returns a team if found team id
 TEAM getIdfromTeacherFile(int intToken, vector<TEAM> teams) {
     for (size_t i = 0; i < teams.size(); i++)
     {
@@ -266,28 +274,30 @@ TEAM getIdfromTeacherFile(int intToken, vector<TEAM> teams) {
     return blankTeam;
 }
 
+//transefers all the lines into STUDENT struct and returns a vector of them
 vector<STUDENT> getStudentsFromFile(fstream& studentsList) {
     studentsList.clear();
-    studentsList.seekg(ios_base::beg);
+    studentsList.seekg(ios_base::beg); //reseting the pointers
     studentsList.seekp(ios_base::beg);
     vector<STUDENT> students;
     string line, token;
     size_t comaIndex = 0;
     STUDENT_FIELD_ORDER order;
     size_t i = 0;
-    while (getline(studentsList, line)) {
+    while (getline(studentsList, line)) {//gets every line form the file
         i = 0;
         STUDENT student;
         comaIndex = line.find(',');
-        token = line.substr(0, comaIndex);
-        if (token == "0") continue;
+        token = line.substr(0, comaIndex);  //cuts to find the index
+        if (token == "0") continue; //if index = 0 go next line
         student.id = stringToInt(token);
         line = line.substr(comaIndex + 1, line.size() - comaIndex - 1);
-        do {
+        do { // else take all the tokens and transfer them into STUDENT variable
             comaIndex = line.find(',');
             token = line.substr(0, comaIndex);
             line = line.substr(comaIndex + 1, line.size() - comaIndex - 1);
             order = (STUDENT_FIELD_ORDER)i;
+            //decides in which field the token needs to be saved
             if (order == STUDENT_FIELD_ORDER::NAME)
             {
                 student.name = token;
@@ -312,12 +322,12 @@ vector<STUDENT> getStudentsFromFile(fstream& studentsList) {
             {
                 student.grade = stof(token);
             }
-            i++;
+            i++;//increments the field order
         } while (line.find(',') != string::npos);
         students.push_back(student);
     }
     studentsList.clear();
-    studentsList.seekg(ios_base::beg);
+    studentsList.seekg(ios_base::beg); // reseting the pointers
     studentsList.seekp(ios_base::beg);
     return students;
 }
@@ -325,7 +335,7 @@ vector<STUDENT> getStudentsFromFile(fstream& studentsList) {
 vector<TEAM> getTeamsFromFile(fstream& teamsList, vector<STUDENT> students)
 {
     teamsList.clear();
-    teamsList.seekp(ios_base::beg);
+    teamsList.seekp(ios_base::beg); // reseting the pointers
     teamsList.seekg(ios_base::beg);
     vector<TEAM> teams;
     string line, token;
@@ -333,16 +343,16 @@ vector<TEAM> getTeamsFromFile(fstream& teamsList, vector<STUDENT> students)
     TEAM_FIELD_ORDER order;
     int intToken;
     size_t i = 0;
-    while (getline(teamsList, line))
+    while (getline(teamsList, line)) // gets every line from a file
     {
         i = 0;
         TEAM team;
         comaIndex = line.find(',');
-        token = line.substr(0, comaIndex);
-        if (token == "0") continue;
+        token = line.substr(0, comaIndex);//cuts to find the index
+        if (token == "0") continue;//if index = 0 go next line
         team.id = stringToInt(token);
         line = line.substr(comaIndex + 1, line.size() - comaIndex - 1);
-        do {
+        do {// else take all the tokens and transfer them into TEAM variable
 
             comaIndex = line.find(',');
             token = line.substr(0, comaIndex);
@@ -384,22 +394,23 @@ vector<TEAM> getTeamsFromFile(fstream& teamsList, vector<STUDENT> students)
             {
                 team.status = token;
             }
-            i++;
+            i++;//increments the field order
         } while (line.find(',') != string::npos);
         teams.push_back(team);
     }
     teamsList.clear();
-    teamsList.seekp(ios_base::beg);
+    teamsList.seekp(ios_base::beg);//reseting the pointers
     teamsList.seekg(ios_base::beg);
     return teams;
 }
+//checks if entered school exist
 bool verifySelectedSchool(string school) {
     fstream file;
     school = "../../CSVFiles/" + school;
     file.open(school + "/StudentFile.csv");
     return file.is_open();
 }
-
+//writes a TEAM into a file
 void insertTeam(TEAM team, fstream& file, string id) {
     string line;
     line = '\n' + id + "," + team.name + "," + team.description + "," + team.date + ",";
@@ -410,6 +421,7 @@ void insertTeam(TEAM team, fstream& file, string id) {
     file << line;
     file.seekp(ios_base::beg);
 }
+//calls insertTeam function n times to write n teams
 void insertTeamsIntoFile(vector<TEAM> teams, fstream& file) {
     string id;
     int intId;
@@ -430,7 +442,8 @@ void to_lower(string& str)
         str[i] = tolower(str[i]);
     }
 }
-
+//used as cmp for sort function
+//check sort docs in algorithm lib
 bool cmpStudentsAlphabetically(STUDENT first, STUDENT second)
 {
     string firstName, secondName;
@@ -449,12 +462,13 @@ bool cmpStudentsAlphabetically(STUDENT first, STUDENT second)
     return firstName.size() < secondName.size();
 }
 
-
+//used as cmp for sort function
+//check sort docs in algorithm lib
 bool cmpStudentsByGrades(STUDENT first, STUDENT second)
 {
     return first.grade < second.grade;
 }
-
+//writes a teacher into a file
 void insertTeacher(TEACHER teacher, fstream& file, string id)
 {
     string line;
@@ -469,6 +483,8 @@ void insertTeacher(TEACHER teacher, fstream& file, string id)
     file << line;
     file.seekp(ios_base::beg);
 }
+
+//calls insertTeacher n times for n teachers
 void insertTeachersIntoFile(vector<TEACHER> teachers, fstream& file)
 {
     string id;
@@ -485,7 +501,7 @@ void insertTeachersIntoFile(vector<TEACHER> teachers, fstream& file)
 
 vector<TEACHER> getTeachersFromFile(fstream& file, vector<TEAM> teams) {
     file.clear();
-    file.seekp(ios_base::beg);
+    file.seekp(ios_base::beg);//reset the pointers
     file.seekg(ios_base::beg);
     vector<TEACHER> teachers;
     string line, token, tokenId;
@@ -493,15 +509,15 @@ vector<TEACHER> getTeachersFromFile(fstream& file, vector<TEAM> teams) {
     TEACHER_FIELD_ORDER order;
     int intToken;
     size_t i = 0;
-    while (getline(file, line)) {
+    while (getline(file, line)) {//gets every line from file
         i = 0;
         TEACHER teacher;
         comaIndex = line.find(',');
-        token = line.substr(0, comaIndex);
-        if (token == "0") continue;
+        token = line.substr(0, comaIndex);//cuts the index token
+        if (token == "0") continue; // if it's 0 go to the next line
         teacher.id = stringToInt(token);
         line = line.substr(comaIndex + 1, line.size() - comaIndex - 1);
-        do {
+        do {//else cut every token and save it in the proper struct field
             comaIndex = line.find(',');
             token = line.substr(0, comaIndex);
             line = line.substr(comaIndex + 1, line.size() - comaIndex - 1);
@@ -524,16 +540,16 @@ vector<TEACHER> getTeachersFromFile(fstream& file, vector<TEAM> teams) {
                     teacher.teamsMentored.push_back(getIdfromTeacherFile(intToken, teams));
                 } while (token.find(';') != string::npos);
             }
-            i++;
+            i++;//increase the field order
         } while (line.find(',') != string::npos);
         teachers.push_back(teacher);
     }
     file.clear();
-    file.seekp(ios_base::beg);
+    file.seekp(ios_base::beg);//resets the pointers
     file.seekg(ios_base::beg);
     return teachers;
 }
-
+//returns all the students that are featured in a team
 vector<STUDENT> getStudentsFromTeams(vector<TEAM> teams)
 {
     vector<STUDENT> students;
@@ -544,10 +560,13 @@ vector<STUDENT> getStudentsFromTeams(vector<TEAM> teams)
         students.push_back(teams[i].scrumMaster);
         students.push_back(teams[i].frontEnd);
     }
+    //deletes all duplicate elements
     sort(students.begin(), students.end(), cmpStudentsAlphabetically);
     students.erase(unique(students.begin(), students.end()), students.end());
     return students;
 }
+
+//delete all dublicate students from the first vector with the second
 void deleteTakenStudents(vector<STUDENT>& studentsFromFile, vector<STUDENT>& studentsFromTeams) {
     vector<STUDENT>::iterator it;
     for (size_t i = 0; i < studentsFromFile.size(); i++) {
@@ -564,6 +583,7 @@ void deleteTakenStudents(vector<STUDENT>& studentsFromFile, vector<STUDENT>& stu
         }
     }
 }
+//randomly dirstibutes the four different roles to at least 2 students
 void distributeTeamMembers(TEAM& team, vector<STUDENT>& students) {
     vector<STUDENT>::iterator it;
     if (students.size() == 1)
@@ -610,7 +630,7 @@ void distributeTeamMembers(TEAM& team, vector<STUDENT>& students) {
     team.qaEngineer = *it;
     students.erase(it);
 }
-
+//rewrites the content to the new file, except the unwanted line
 bool writeTempFile(fstream& prevFile, fstream& newFile, int id) {
     bool findId = false;
     string line, token;
@@ -638,7 +658,7 @@ bool writeTempFile(fstream& prevFile, fstream& newFile, int id) {
     prevFile.clear();
     return findId;
 }
-
+//deletes a line from a file 
 void deleteFromFile(fstream& file,string fileName) {
     int id, comaIndex;
     string line, token;
@@ -681,4 +701,66 @@ void deleteFromFile(fstream& file,string fileName) {
     else {
         cout << "The file did not open!" << endl;
     }
+}
+
+void changeTeamStatus(fstream& file, int id, string status) {
+    string line, tempLine, token;
+    string oldNameStr, newNameStr, removeFileStr;
+    char* oldName, * newName, * removeFile;
+    int commaIndex;
+    fstream newFile(schoolDirectory + "/NewFile.csv", ios::out);
+    size_t i = 0;
+    file.seekg(ios_base::beg);
+    file.seekp(ios_base::beg);
+    file.clear();
+    while (getline(file, line)) {//gets every line from a file
+        tempLine = line;
+        commaIndex = tempLine.find(',');
+        token = line.substr(0, commaIndex);
+        line = line.substr(commaIndex + 1, line.size() - commaIndex - 1);
+        if (stringToInt(token) == id)//finds the wanted line
+        {
+            i = 0;
+            do //finds the status token
+            {
+                commaIndex = line.find(',');
+                token = line.substr(0, commaIndex);
+                line = line.substr(commaIndex + 1, line.size() - commaIndex - 1);
+                i++;
+            } while ((TEAM_FIELD_ORDER)i != TEAM_FIELD_ORDER::STATUS);
+            //changes status from the line
+            commaIndex = line.find(',');
+            token = line.substr(0, commaIndex);
+            line = line.substr(commaIndex + 1, line.size() - commaIndex - 1);
+            commaIndex = tempLine.find(token);
+            tempLine = tempLine.substr(0, commaIndex);
+            tempLine += status + ",";
+        }
+        if (token == "0")
+        {//pushes the line to the new file
+            newFile << tempLine;
+            continue;
+        }
+        //pushes the line to the new file
+        newFile << endl << tempLine;
+    }
+    newFile.flush();
+    newFile.close();
+    file.close();
+    oldNameStr = schoolDirectory + "/NewFile.csv";
+    newNameStr = schoolDirectory + "/Teams.csv";
+    removeFileStr = schoolDirectory + "/Teams.csv";
+    oldName = &oldNameStr[0];
+    newName = &newNameStr[0];
+    removeFile = &removeFileStr[0];
+    if (remove(removeFile) == 0)
+        puts("");
+    else
+        perror("Unable to delete the file");
+
+    if (rename(oldName, newName) == 0)
+        puts("");
+    else
+        perror("Error renaming file");
+    file.open(schoolDirectory + "/Teams.csv");
 }

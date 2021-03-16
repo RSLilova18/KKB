@@ -190,5 +190,32 @@ vector<TEAM> randomDistributeTeams(vector<TEAM> teamsFromFile, vector<STUDENT> s
     return teams;
 }
 
+void changeTeamStatusMenu(fstream& file) {
+    int id, option;
+    string status;
+    cout << "Enter the id of the team you want to replace: ";
+    id = readInt();
+    cout << "...................." << endl;
+    cout << ". 1. In use        ." << endl;
+    cout << ". 2. Not active    ." << endl;
+    cout << "...................." << endl;
+    option = readInt();
+    while (!(option >= 1 && option <= 2)) {
+        cout << "Not a valid option!" << endl << endl;
+        cout << "...................." << endl;
+        cout << ". 1. In use        ." << endl;
+        cout << ". 2. Not active    ." << endl;
+        cout << "...................." << endl;
+        option = readInt();
+    }
+    if (option == 1)
+    {
+        status = "In use";
+    }
+    else {
+        status = "Not active";
+    }
+    changeTeamStatus(file, id, status);
+}
 
 
